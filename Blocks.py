@@ -22,7 +22,7 @@ class Water(pygame.sprite.Sprite):
         self.y_pos = pos_y
 
 
-class Grass(pygame.sprite.Sprite):
+class Rock(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         self.image = "Somefile"
         self.x_pos = pos_x
