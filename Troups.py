@@ -3,7 +3,7 @@ import pygame
 
 class Swordsman(pygame.sprite.Sprite):
     def __init__(self):
-        self.velocity = 50
+        self.velocity = 55
         self.health = 60
         self.damage = 60
         self.moral = 75
