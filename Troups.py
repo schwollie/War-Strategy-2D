@@ -1,8 +1,8 @@
 import pygame
 
 
-Swordsman_image = pygame.image.load('images/Swordsman.png')
-Bowman_image = pygame.image.load('images/Bowman.png')
+Swordsman_image = pygame.image.load('images/Swords.png')
+Bowman_image = pygame.image.load('images/Bow.png')
 
 
 class Swordsman(pygame.sprite.Sprite):
