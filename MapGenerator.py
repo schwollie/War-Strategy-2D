@@ -1,4 +1,3 @@
-import pygame
 from random import *
 import Blocks
 width = 10

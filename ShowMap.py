@@ -1,6 +1,7 @@
 import pygame
 import sys
 import MapGenerator
+import colors
 import Blocks
 import Saved_Settings
 
@@ -15,7 +16,7 @@ def draw_Blocks(screen):
             block.transform_pic(w/MapGenerator.width, h/MapGenerator.height)
             pos_x = w/MapGenerator.width * row
             pos_y = h/MapGenerator.height * col
-            print(pos_x)
+            print(pos_x, pos_y, block.rect[2], block.rect[3])
             block.draw(screen, [pos_x, pos_y, block.rect[2], block.rect[3]])
 
 
@@ -25,7 +26,7 @@ def initialize_Map(screen):
 
     while True:
         clock.tick(60)
-
+        screen.fill(colors.white)
 
         draw_Blocks(screen)
 
