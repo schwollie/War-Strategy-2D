@@ -13,19 +13,24 @@ Map_Tiles_List = [[0 for col in range(width)] for row in range(height)]
 
 
 def add_water(row, col):
-    Map_Tiles_List[row][col] = Water
+    new_Block = Blocks.Water(row, col)
+    print(new_Block.image)
+    Map_Tiles_List[row][col] = new_Block
 
 
 def add_dirt(row, col):
-    Map_Tiles_List[row][col] = Dirt
+    new_Block = Blocks.Dirt(row, col)
+    Map_Tiles_List[row][col] = new_Block
 
 
 def add_rocks(row, col):
-    Map_Tiles_List[row][col] = Rock
+    new_Block = Blocks.Rock(row, col)
+    Map_Tiles_List[row][col] = new_Block
 
 
 def add_grass(row, col):
-    Map_Tiles_List[row][col] = Grass
+    new_Block = Blocks.Grass(row, col)
+    Map_Tiles_List[row][col] = new_Block
 
 
 def create_map():
