@@ -1,37 +1,38 @@
 import pygame
 from random import *
+import Blocks
 width = 200
 height = 200
 
-grass = 0
-dirt = 1
-rock = 2
-water = 3
+Blocks.Grass = 0
+Blocks.Dirt = 1
+Blocks.Rock = 2
+Blocks.Water = 3
 
-Map_Tiles_List = [[grass for col in range(width)] for row in range(height)]
+Map_Tiles_List = [[0 for col in range(width)] for row in range(height)]
 
 
 def add_water(row, col):
-    Map_Tiles_List[row][col] = water
+    Map_Tiles_List[row][col] = 0
 
 
 def add_dirt(row, col):
-    Map_Tiles_List[row][col] = dirt
+    Map_Tiles_List[row][col] = 1
 
 
 def add_rocks(row, col):
-    Map_Tiles_List[row][col] = rock
+    Map_Tiles_List[row][col] = 2
 
 
 def add_grass(row, col):
-    Map_Tiles_List[row][col] = grass
+    Map_Tiles_List[row][col] = 3
 
 
 def create_map():
     for row in range(height):
         for col in range(width):
             rand = randint(0, 3)
-            print(row, col, "hi")
+            print(row, col)
             print(Map_Tiles_List[row][col])
 
             if rand == 0:
