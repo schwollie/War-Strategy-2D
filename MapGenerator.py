@@ -1,7 +1,7 @@
 from random import *
 import Blocks
-width = 10
-height = 10
+width = 100
+height = 100
 
 Map_Tiles_List = [[0 for col in range(width)] for row in range(height)]
 
@@ -27,6 +27,7 @@ def add_grass(row, col):
 
 
 def create_map():
+    #
     for row in range(height):
         for col in range(width):
             rand = randint(0, 3)

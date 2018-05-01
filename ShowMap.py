@@ -2,14 +2,11 @@ import pygame
 import sys
 import MapGenerator
 import colors
-import Blocks
-import Saved_Settings
 
 
 def draw_Blocks(screen):
     Block_List = MapGenerator.Map_Tiles_List
     w, h = pygame.display.get_surface().get_size()
-    #print(screen)
 
     for row in range(len(Block_List)):
         for col in range(len(Block_List[0])):

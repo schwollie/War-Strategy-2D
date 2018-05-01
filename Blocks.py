@@ -1,9 +1,9 @@
 import pygame
 
-Grass_image = pygame.image.load("images/Grass.png")
-Dirt_image = pygame.image.load("images/Dirt.png")
-Water_image = pygame.image.load("images/Water.png")
-Rock_image = pygame.image.load("images/Rock.png")
+Grass_image = pygame.image.load("images/Grass.jpg")
+Dirt_image = pygame.image.load("images/Dirt.jpg")
+Water_image = pygame.image.load("images/Water.jpg")
+Rock_image = pygame.image.load("images/Rock.jpg")
 
 
 class Grass(pygame.sprite.Sprite):
