@@ -9,7 +9,6 @@ Map_Tiles_List = [[0 for col in range(width)] for row in range(height)]
 
 def add_water(row, col):
     new_Block = Blocks.Water(row, col)
-    print(new_Block.image)
     Map_Tiles_List[row][col] = new_Block
 
 
