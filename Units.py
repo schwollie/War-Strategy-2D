@@ -20,6 +20,7 @@ class UnitSwordsmen(pygame.sprite.Sprite):
         for i in range(0, self.troups_number/row):
             warrior = Troups.Swordsman(((self.pos[0] + i), (self.pos[1])+2))
             self.alive_troups.append(warrior)
+        #jjs
 
 
     def rotate(self, rotation):
