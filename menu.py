@@ -7,15 +7,15 @@ import Button
 import Settings
 import colors
 
-global icon
-icon = pygame.image.load('icon.png')
+global icon1
+icon1 = pygame.image.load('icon.png')
 
 class Menu(object):
     def __init__(self, settings, screen):
         self.settings = settings
         self.screen = screen
         self.screen_caption = pygame.display.set_caption('War Strategy 2D')
-        self.screen_icon = pygame.display.set_icon(icon)
+        self.screen_icon = pygame.display.set_icon(icon1)
         self.btn_list = []
         pygame.font.init()
         self.create_settings_button(self.settings)
