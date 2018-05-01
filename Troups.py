@@ -16,7 +16,9 @@ class Bowman(pygame.sprite.Sprite):
         self.health = 20
         self.damage = 20
         self.bow_damage = 40
+        self.damage = 20
         self.moral = 60
+        self.range = 60
 
 
 
