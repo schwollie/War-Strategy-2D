@@ -8,7 +8,7 @@ import Settings
 import colors
 
 global icon
-icon = pygame.image.load('icon.png')
+icon = pygame.image.load('images/icon.png')
 
 class Menu(object):
     def __init__(self, settings, screen):
