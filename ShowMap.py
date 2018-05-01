@@ -16,6 +16,8 @@ def draw_Blocks(screen):
             pos_y = h/MapGenerator.height * row
             block.draw(screen, [pos_x, pos_y, block.rect[2], block.rect[3]])
 
+            #
+
 
 def initialize_Map(screen):
     clock = pygame.time.Clock()
