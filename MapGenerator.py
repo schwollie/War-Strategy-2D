@@ -1,7 +1,7 @@
 from random import *
 import Blocks
-width = 10
-height = 10
+width = 20
+height = 20
 
 Map_Tiles_List = [[0 for col in range(width)] for row in range(height)]
 
@@ -30,8 +30,8 @@ def create_map():
     for row in range(height):
         for col in range(width):
             rand = randint(0, 3)
-            print(row, col)
-            print(Map_Tiles_List[row][col])
+            #print(row, col)
+            #print(Map_Tiles_List[row][col])
 
             if rand == 0:
                 add_water(row, col)
