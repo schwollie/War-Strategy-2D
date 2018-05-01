@@ -4,28 +4,28 @@ import Blocks
 width = 200
 height = 200
 
-Blocks.Grass = 0
-Blocks.Dirt = 1
-Blocks.Rock = 2
-Blocks.Water = 3
+Grass = Blocks.Grass
+Dirt = Blocks.Dirt
+Rock = Blocks.Rock
+Water = Blocks.Water
 
 Map_Tiles_List = [[0 for col in range(width)] for row in range(height)]
 
 
 def add_water(row, col):
-    Map_Tiles_List[row][col] = 0
+    Map_Tiles_List[row][col] = Water
 
 
 def add_dirt(row, col):
-    Map_Tiles_List[row][col] = 1
+    Map_Tiles_List[row][col] = Dirt
 
 
 def add_rocks(row, col):
-    Map_Tiles_List[row][col] = 2
+    Map_Tiles_List[row][col] = Rock
 
 
 def add_grass(row, col):
-    Map_Tiles_List[row][col] = 3
+    Map_Tiles_List[row][col] = Grass
 
 
 def create_map():
