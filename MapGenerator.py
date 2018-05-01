@@ -1,8 +1,8 @@
 import pygame
 from random import *
 import Blocks
-width = 200
-height = 200
+width = 10
+height = 10
 
 Grass = Blocks.Grass
 Dirt = Blocks.Dirt
@@ -45,9 +45,9 @@ def create_map():
                 add_grass(row, col)
 
 
-create_map()
+def init():
+    create_map()
 
-print(Map_Tiles_List)
 
 
 

@@ -6,6 +6,7 @@ import pygame
 import Button
 import Settings
 import colors
+import ShowMap
 
 global icon
 icon = pygame.image.load('images/icon.png')
@@ -69,7 +70,7 @@ class Menu(object):
         width = int(self.settings.resolution[0] / 2 + self.settings.resolution[0] / 10 - (self.settings.resolution[0] / 2 - self.settings.resolution[0] / 10))
         height = int((self.settings.resolution[1] / 2 + self.settings.resolution[1] / 3.7) - (self.settings.resolution[1] / 2 - self.settings.resolution[1] / 3.7) / 0.33)
 
-        btn = Button.button(left, top, width, height, "Play Battle", settings, 3)
+        btn = Button.button(left, top, width, height, "Play Battle", settings, 3, ShowMap.initialize_Map, arguments=self.screen)
         self.btn_list.append(btn)
 
     def create_exit_button(self, settings):
