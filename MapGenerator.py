@@ -1,7 +1,7 @@
 from random import *
 import Blocks
-width = 20
-height = 20
+width = 10
+height = 10
 
 Map_Tiles_List = [[0 for col in range(width)] for row in range(height)]
 
@@ -45,6 +45,7 @@ def create_map():
 
 def init():
     create_map()
+    print(Map_Tiles_List)
 
 
 

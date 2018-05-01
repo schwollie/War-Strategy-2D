@@ -1,10 +1,15 @@
 import pygame
 
+Grass_image = pygame.image.load("images/Grass.png")
+Dirt_image = pygame.image.load("images/Dirt.png")
+Water_image = pygame.image.load("images/Water.png")
+Rock_image = pygame.image.load("images/Rock.png")
+
 
 class Grass(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images/Grass.png")
+        self.image = Grass_image
         self.rect = self.image.get_rect()
         self.x_pos = pos_x
         self.y_pos = pos_y
@@ -22,7 +27,7 @@ class Grass(pygame.sprite.Sprite):
 class Dirt(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images/Dirt.png")
+        self.image = Dirt_image
         self.rect = self.image.get_rect()
         self.x_pos = pos_x
         self.y_pos = pos_y
@@ -40,7 +45,7 @@ class Dirt(pygame.sprite.Sprite):
 class Water(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images/Water.png")
+        self.image = Water_image
         self.rect = self.image.get_rect()
         self.x_pos = pos_x
         self.y_pos = pos_y
@@ -58,7 +63,7 @@ class Water(pygame.sprite.Sprite):
 class Rock(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images/Rock.png")
+        self.image = Rock_image
         self.rect = self.image.get_rect()
         self.x_pos = pos_x
         self.y_pos = pos_y
