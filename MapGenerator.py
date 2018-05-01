@@ -4,11 +4,6 @@ import Blocks
 width = 10
 height = 10
 
-Grass = Blocks.Grass
-Dirt = Blocks.Dirt
-Rock = Blocks.Rock
-Water = Blocks.Water
-
 Map_Tiles_List = [[0 for col in range(width)] for row in range(height)]
 
 

@@ -12,10 +12,10 @@ class Grass(pygame.sprite.Sprite):
         self.rect.top = pos_y
 
     def draw(self, screen, pos):
-        screen.Blit(screen, pos)
+        screen.blit(screen, pos)
 
     def transform_pic(self, width, height):
-        self.image = pygame.transform.scale(self.image, int(width), int(height))
+        self.image = pygame.transform.scale(self.image, (int(width), int(height)))
         self.rect = self.image.get_rect()
 
 
@@ -30,10 +30,10 @@ class Dirt(pygame.sprite.Sprite):
         self.rect.top = pos_y
 
     def draw(self, screen, pos):
-        screen.Blit(screen, pos)
+        screen.blit(screen, pos)
 
     def transform_pic(self, width, height):
-        self.image = pygame.transform.scale(self.image, int(width), int(height))
+        self.image = pygame.transform.scale(self.image, (int(width), int(height)))
         self.rect = self.image.get_rect()
 
 
@@ -48,10 +48,10 @@ class Water(pygame.sprite.Sprite):
         self.rect.top = pos_y
 
     def draw(self, screen, pos):
-        screen.Blit(screen, pos)
+        screen.blit(screen, pos)
 
     def transform_pic(self, width, height):
-        self.image = pygame.transform.scale(self.image, int(width), int(height))
+        self.image = pygame.transform.scale(self.image, (int(width), int(height)))
         self.rect = self.image.get_rect()
 
 
@@ -66,10 +66,10 @@ class Rock(pygame.sprite.Sprite):
         self.rect.top = pos_y
 
     def draw(self, screen, pos):
-        screen.Blit(screen, pos)
+        screen.blit(screen, pos)
 
     def transform_pic(self, width, height):
-        self.image = pygame.transform.scale(self.image, int(width), int(height))
+        self.image = pygame.transform.scale(self.image, (int(width), int(height)))
         self.rect = self.image.get_rect()
 
 
