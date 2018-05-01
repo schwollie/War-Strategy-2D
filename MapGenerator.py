@@ -27,12 +27,13 @@ def add_grass(row, col):
 
 
 def create_map():
-    #
+
     for row in range(height):
         for col in range(width):
             rand = randint(0, 3)
             #print(row, col)
             #print(Map_Tiles_List[row][col])
+
 
             if rand == 0:
                 add_water(row, col)
@@ -42,6 +43,16 @@ def create_map():
                 add_rocks(row, col)
             elif rand == 3:
                 add_grass(row, col)
+
+    for row in range(0, 20):
+        for col in range (0, 5):
+            add_grass(row, col)
+
+    for row in range(0, 20):
+        for col in range (15, 20):
+            add_grass(row, col)
+
+
 
 
 def init():
