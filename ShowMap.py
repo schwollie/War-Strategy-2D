@@ -11,7 +11,7 @@ def draw_Blocks(screen):
     for row in range(len(Block_List)):
         for col in range(len(Block_List[0])):
             block = Block_List[row][col]
-            #block.transform_pic(h/MapGenerator.width, h/MapGenerator.height)
+            block.transform_pic(h/MapGenerator.width, h/MapGenerator.height)
             pos_x = h/MapGenerator.width * col
             pos_y = h/MapGenerator.height * row
             block.draw(screen, [pos_x, pos_y, block.rect[2], block.rect[3]])
