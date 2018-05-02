@@ -11,10 +11,12 @@ class Grass(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = Grass_image
         self.rect = self.image.get_rect()
-        self.x_pos = pos_x
-        self.y_pos = pos_y
+        self.pos_x = pos_x  # in coordinate system 10000 x 10000
+        self.pos_y = pos_y  # in coordinate system 10000 x 10000
         self.rect.left = pos_x
         self.rect.top = pos_y
+        self.view_pos_x = 0
+        self.view_pos_y = 0
 
     def draw(self, screen, pos):
         screen.blit(self.image, pos)
@@ -29,10 +31,12 @@ class Dirt(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = Dirt_image
         self.rect = self.image.get_rect()
-        self.x_pos = pos_x
-        self.y_pos = pos_y
+        self.pos_x = pos_x  # in coordinate system 10000 x 10000
+        self.pos_y = pos_y  # in coordinate system 10000 x 10000
         self.rect.left = pos_x
         self.rect.top = pos_y
+        self.view_pos_x = 0
+        self.view_pos_y = 0
 
     def draw(self, screen, pos):
         screen.blit(self.image, pos)
@@ -47,10 +51,12 @@ class Water(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = Water_image
         self.rect = self.image.get_rect()
-        self.x_pos = pos_x
-        self.y_pos = pos_y
+        self.pos_x = pos_x  # in coordinate system 10000 x 10000
+        self.pos_y = pos_y  # in coordinate system 10000 x 10000
         self.rect.left = pos_x
         self.rect.top = pos_y
+        self.view_pos_x = 0
+        self.view_pos_y = 0
 
     def draw(self, screen, pos):
         screen.blit(self.image, pos)
@@ -65,10 +71,12 @@ class Rock(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = Rock_image
         self.rect = self.image.get_rect()
-        self.x_pos = pos_x
-        self.y_pos = pos_y
+        self.pos_x = pos_x  # in coordinate system 10000 x 10000
+        self.pos_y = pos_y  # in coordinate system 10000 x 10000
         self.rect.left = pos_x
         self.rect.top = pos_y
+        self.view_pos_x = 0
+        self.view_pos_y = 0
 
     def draw(self, screen, pos):
         screen.blit(self.image, pos)
