@@ -60,10 +60,10 @@ class Grass(MapSprite):
     def __init__(self, pos_x, pos_y):
         MapSprite.__init__(self, lambda: Grass_image, pos_x, pos_y)
 
-
-class Dirt(MapSprite):
+t(MapSprite):
     def __init__(self, pos_x, pos_y):
-        MapSprite.__init__(self, lambda: Dirt_image, pos_x, pos_y)
+        MapSprite.__init
+class Dir__(self, lambda: Dirt_image, pos_x, pos_y)
 
 class Water(MapSprite):
     def __init__(self, pos_x, pos_y):

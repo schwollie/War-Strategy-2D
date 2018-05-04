@@ -5,6 +5,7 @@ import sys
 import MapGenerator as mg
 import colors
 import Blocks
+import Sidebar
 
 
 Camera_pos = [0, 0, 0, 0]  # left, top, width, height
@@ -123,6 +124,7 @@ def initialize_Map(screen):
         screen.fill(colors.white)
 
         draw_Blocks(screen)
+        #Sidebar.draw_rect(screen)
 
         for event in events:
             if event == pygame.QUIT:
