@@ -3,8 +3,6 @@ import colors
 import Button
 import math
 
-
-
 Swordsman_image_side = pygame.image.load('images/Swordsman.png')
 Bowman_image_side = pygame.image.load('images/Bowman.png')
 
@@ -33,7 +31,7 @@ class Sidebar(pygame.sprite.Sprite):
         w, h = pygame.display.get_surface().get_size()
         left = w-(w*0.1)
         top = 0
-        width = w-(w*0.1)
+        width = (w*0.1)
         height = h
         self.btn = Button.button(left, top, width, height, "+/-", self.settings, 1, function_to_call=self.change_sidebar_visibility)
 
@@ -42,7 +40,8 @@ class Sidebar(pygame.sprite.Sprite):
             self.draw_rect(screen)
 
         self.btn.draw_btn(screen)
-        self.btn.check_click_collide(events)
+        if self.btn.check_click_collide(events):
+            self.btn.action()
 
 
 
