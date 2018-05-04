@@ -38,9 +38,11 @@ class Sidebar(pygame.sprite.Sprite):
         self.btn = Button.button(left, top, width, height, "+/-", self.settings, 1, function_to_call=self.change_sidebar_visibility)
 
     def draw_all(self, screen, events):
+        if self.show_sidebar:
+            self.draw_rect(screen)
+
         self.btn.draw_btn(screen)
         self.btn.check_click_collide(events)
 
-        if self.show_sidebar:
-            self.draw_rect(screen)
+
 

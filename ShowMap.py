@@ -43,11 +43,13 @@ def initialize_Map(screen, settings):
 
         # -----------------------------
 
+        print(len(events))
+
         Camera.change_cam(delta_time, events)
 
-        draw_Blocks(screen)
+        print(len(events))
 
-        events = pygame.event.get()
+        draw_Blocks(screen)
 
         bar.draw_all(screen, events)
 
