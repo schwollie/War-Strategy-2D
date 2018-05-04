@@ -111,6 +111,8 @@ def initialize_Map(screen):
     transform_blocks()
     set_Blocks_settings()
 
+    bar = Sidebar.Sidebar()
+
     while True:
         clock.tick(60)
         delta_time = clock.get_time()
@@ -122,7 +124,8 @@ def initialize_Map(screen):
         screen.fill(colors.white)
 
         draw_Blocks(screen)
-        #Sidebar.draw_rect(screen)
+
+        bar.draw_rect(screen)
 
         for event in events:
             if event == pygame.QUIT:
