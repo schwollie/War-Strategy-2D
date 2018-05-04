@@ -7,22 +7,22 @@ Map_Tiles_List = [[0 for col in range(block_number_x)] for row in range(block_nu
 
 
 def add_water(row, col):
-    new_Block = Blocks.Water(10000/block_number_y*(col+1), 10000/block_number_x*row)
+    new_Block = Blocks.Water(10000/block_number_y*(col), 10000/block_number_x*row)
     Map_Tiles_List[row][col] = new_Block
 
 
 def add_dirt(row, col):
-    new_Block = Blocks.Dirt(10000/block_number_y*(col+1), 10000/block_number_x*row)
+    new_Block = Blocks.Dirt(10000/block_number_y*(col), 10000/block_number_x*row)
     Map_Tiles_List[row][col] = new_Block
 
 
 def add_rocks(row, col):
-    new_Block = Blocks.Rock(10000/block_number_y*(col+1), 10000/block_number_x*row)
+    new_Block = Blocks.Rock(10000/block_number_y*(col), 10000/block_number_x*row)
     Map_Tiles_List[row][col] = new_Block
 
 
 def add_grass(row, col):
-    new_Block = Blocks.Grass(10000/block_number_y*(col+1), 10000/block_number_x*row)
+    new_Block = Blocks.Grass(10000/block_number_y*(col), 10000/block_number_x*row)
     Map_Tiles_List[row][col] = new_Block
 
 
@@ -47,7 +47,7 @@ def create_map():
             #print()
 
     for row in range(0, block_number_x):
-        for col in range(block_number_x - 2, block_number_x):
+        for col in range(block_number_x-2, block_number_x):
             add_grass(col, row)
 
 

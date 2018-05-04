@@ -56,7 +56,7 @@ def change_cam(delta_time, events):
     if keys[pygame.K_a] and Camera_pos[0] > 1:
         Camera_pos[0] = int(Camera_pos[0] - 10 * delta_time * zoom_level)
         changed = True
-    if keys[pygame.K_s] and Camera_pos[1] + Camera_pos[3] > 10000:
+    if keys[pygame.K_s] and Camera_pos[1] - Camera_pos[3] < 10000:
         Camera_pos[1] = int(Camera_pos[1] - 10 * delta_time * zoom_level)
         changed = True
     if keys[pygame.K_w] and Camera_pos[1] < 10000:
@@ -73,6 +73,12 @@ def change_cam(delta_time, events):
                 Camera_pos[2] += 1000 * zoom_level / 2
                 Camera_pos[3] = Camera_pos[2] * (h / w)
                 changed = True
+
+    if Camera_pos[0] + Camera_pos[3] > 10000:
+        Camera_pos[0] = 10000 - Camera_pos[3]
+
+    if Camera_pos[0] < 0:
+        Camera_pos[0] = 0
 
     if changed:
         set_Blocks_settings()

@@ -3,8 +3,6 @@ import math
 import colors
 
 
-
-
 class button(object):
     def __init__(self, left, top, width, height, text, settings, ID, function_to_call=None, arguments=None, last_button=False):
         self.arg = arguments

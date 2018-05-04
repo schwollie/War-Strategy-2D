@@ -19,7 +19,7 @@ class Sidebar(pygame.sprite.Sprite):
         pygame.draw.rect(screen, colors.red, (w-(0.2*w), 0, w-(0.2*w), h))
         pygame.draw.rect(screen, colors.dark_grey, (w - (0.2 * w), 0, w - (0.2 * w), h), int(w/400))
 
-    def draw_buttons(self):
+    def create_button(self):
         # big rect
         w, h = pygame.display.get_surface().get_size()
         line_strength = int(w/400)
@@ -28,4 +28,7 @@ class Sidebar(pygame.sprite.Sprite):
         width = w-(w*0.1)
         height = h
 
-        btn = Button.button(left, top, width, height, "+", settings, line_strength)
+        self.btn = Button.button(left, top, width, height, "+", settings, 1)
+
+    def draw_all(self):
+        self.btn.draw()

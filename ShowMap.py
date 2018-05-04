@@ -16,10 +16,9 @@ def draw_Blocks(screen):
             block = Block_List[row][col]
             # print(int(Camera_pos[1] - Camera_pos[3]), Camera_pos[1], block.pos_y)
 
-            # if int(block.pos_x) in range(int(Camera_pos[0]-1000), int(Camera_pos[0]) + Camera_pos[2] + 1000) and \
-            # int(block.pos_y) in range(int(Camera_pos[1] - Camera_pos[3]-1000), int(Camera_pos[1]+1000)):
-
-            block.draw(screen, [block.view_pos_x, block.view_pos_y, block.rect[2], block.rect[3]])
+            if Camera.Camera_pos[0] + Camera.Camera_pos[2] + 100 >= block.pos_x >= Camera.Camera_pos[0] - 100: #and \
+              # Camera.Camera_pos[1] >= block.pos_y <= Camera.Camera_pos[1] - Camera.Camera_pos[3]:
+                block.draw(screen, [block.view_pos_x, block.view_pos_y, block.rect[2], block.rect[3]])
 
 
 def initialize_Map(screen):
