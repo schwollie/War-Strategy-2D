@@ -12,14 +12,11 @@ def draw_Blocks(screen):
     Block_List = mg.Map_Tiles_List
 
     for row in range(mg.block_number_x):
-        for col in range(len(Block_List[0])):
-            block = Block_List[row][col]
-            # print(int(Camera_pos[1] - Camera_pos[3]), Camera_pos[1], block.pos_y)
+        for col in range(mg.block_number_y):
+            if Camera.Camera_pos[0] + Camera.Camera_pos[2] + 200 >= Block_List[row][col].pos_x >= Camera.Camera_pos[0] - 200 and \
+               Camera.Camera_pos[1] + 200 >= Block_List[row][col].pos_y >= Camera.Camera_pos[1] - Camera.Camera_pos[3]:
 
-            if Camera.Camera_pos[0] + Camera.Camera_pos[2] + 200 >= block.pos_x >= Camera.Camera_pos[0] - 200 and \
-                Camera.Camera_pos[1] + 200 >= block.pos_y >= Camera.Camera_pos[1] - Camera.Camera_pos[3]:
-
-                block.draw(screen, [block.view_pos_x, block.view_pos_y, block.rect[2], block.rect[3]])
+                Block_List[row][col].draw(screen, [Block_List[row][col].view_pos_x, Block_List[row][col].view_pos_y, Block_List[row][col].rect[2], Block_List[row][col].rect[3]])
 
 
 def initialize_Map(screen, settings):
@@ -44,11 +41,7 @@ def initialize_Map(screen, settings):
 
         # -----------------------------
 
-        print(len(events))
-
         Camera.change_cam(delta_time, events)
-
-        print(len(events))
 
         draw_Blocks(screen)
 

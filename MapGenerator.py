@@ -1,28 +1,28 @@
 from random import *
 import Blocks
-block_number_x = 50
-block_number_y = 50
+block_number_x = 100
+block_number_y = 100
 
 Map_Tiles_List = [[0 for col in range(block_number_x)] for row in range(block_number_y)]
 
 
 def add_water(row, col):
-    new_Block = Blocks.Water(10000/block_number_y*(col), 10000/block_number_x*row)
+    new_Block = Blocks.Water(10000/block_number_y*(col), 10000 - 10000/block_number_x*row)
     Map_Tiles_List[row][col] = new_Block
 
 
 def add_dirt(row, col):
-    new_Block = Blocks.Dirt(10000/block_number_y*(col), 10000/block_number_x*row)
+    new_Block = Blocks.Dirt(10000/block_number_y*(col), 10000 - 10000/block_number_x*row)
     Map_Tiles_List[row][col] = new_Block
 
 
 def add_rocks(row, col):
-    new_Block = Blocks.Rock(10000/block_number_y*(col), 10000/block_number_x*row)
+    new_Block = Blocks.Rock(10000/block_number_y*(col), 10000 - 10000/block_number_x*row)
     Map_Tiles_List[row][col] = new_Block
 
 
 def add_grass(row, col):
-    new_Block = Blocks.Grass(10000/block_number_y*(col), 10000/block_number_x*row)
+    new_Block = Blocks.Grass(10000/block_number_y*(col), 10000 - 10000/block_number_x*row)
     Map_Tiles_List[row][col] = new_Block
 
 
