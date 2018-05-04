@@ -12,4 +12,4 @@ class Sidebar(pygame.sprite.Sprite):
 
     def draw_rect(self, screen):
         w, h = pygame.display.get_surface().get_size()
-        pygame.draw.rect(screen, colors.black, (w-(0.5*w), h, w-(0.5*w), h))
+        pygame.draw.rect(screen, colors.black, (w-(0.5*w), 0, w-(0.5*w), h))
