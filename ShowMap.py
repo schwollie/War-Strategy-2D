@@ -29,15 +29,17 @@ def set_Blocks_settings():
     block_list = mg.Map_Tiles_List
     w, h = pygame.display.get_surface().get_size()
 
-    for row in range(mg.block_number_x):
-        for col in range(mg.block_number_y):
+    maßstab_cam_x = Camera_pos[2] / w
+    maßstab_cam_y = Camera_pos[3] / h
+
+    for row in range(mg.block_number_y):
+        for col in range(mg.block_number_x):
             block = block_list[row][col]
+
             view_x_pos_first = block.pos_x - Camera_pos[0]  # pos on the screen x
-            maßstab_cam_x = Camera_pos[2] / w
             block.view_pos_x = int(view_x_pos_first/maßstab_cam_x)
 
             view_y_pos_first = Camera_pos[1] - block.pos_y    # pos on the screen y
-            maßstab_cam_y = Camera_pos[3] / h
             block.view_pos_y = int(view_y_pos_first / maßstab_cam_y)
 
             # print(block.view_pos_x, block.view_pos_y, "Block_settings")
@@ -53,8 +55,8 @@ def transform_blocks():
     Blocks.resize_pics(new_width, new_height)
 
     block_list = mg.Map_Tiles_List
-    for row in range(mg.block_number_x):
-        for col in range(mg.block_number_y):
+    for row in range(mg.block_number_y):
+        for col in range(mg.block_number_x):
             block_list[row][col].update_rect()
 
 def change_cam(delta_time, events):
@@ -102,8 +104,8 @@ def change_cam(delta_time, events):
 def initialize_Map(screen):
     global Camera_pos
     w, h = pygame.display.get_surface().get_size()
-    initiales_cam_y = 10000 * (h / w)
-    Camera_pos = [0, 10000, 10000, initiales_cam_y]
+    initiales_cam_y = 1000 * (h / w)
+    Camera_pos = [0, 10000, 1000, initiales_cam_y]
     clock = pygame.time.Clock()
     mg.init()
 
