@@ -32,7 +32,7 @@ class Sidebar(pygame.sprite.Sprite):
         left = w-(w*0.1)
         top = 0
         width = (w*0.1)
-        height = h
+        height = h*0.1
         self.btn = Button.button(left, top, width, height, "+/-", self.settings, 1, function_to_call=self.change_sidebar_visibility)
 
     def draw_all(self, screen, events):
