@@ -1,7 +1,7 @@
 from random import *
 import Blocks
-block_number_x = 100
-block_number_y = 100
+block_number_x = 50
+block_number_y = 50
 
 Map_Tiles_List = [[0 for col in range(block_number_x)] for row in range(block_number_y)]
 
@@ -33,7 +33,7 @@ def create_map():
             rand = randint(0, 3)
 
             if rand == 0:
-                add_water(row, col)
+               add_water(row, col)
             elif rand == 1:
                 add_dirt(row, col)
             elif rand == 2:

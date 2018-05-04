@@ -46,6 +46,8 @@ class MapSprite(pygame.sprite.Sprite):
         self.view_pos_x = 0
         self.view_pos_y = 0
 
+        print(pos_x, pos_y)
+
     def draw(self, screen, pos):
         screen.blit(self.image, pos)
 

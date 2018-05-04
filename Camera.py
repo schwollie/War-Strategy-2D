@@ -40,7 +40,6 @@ def transform_blocks():
             block_list[row][col].update_rect()
 
 
-
 def change_cam(delta_time, events):
     changed = False
 

@@ -16,8 +16,9 @@ def draw_Blocks(screen):
             block = Block_List[row][col]
             # print(int(Camera_pos[1] - Camera_pos[3]), Camera_pos[1], block.pos_y)
 
-            if Camera.Camera_pos[0] + Camera.Camera_pos[2] + 100 >= block.pos_x >= Camera.Camera_pos[0] - 100: #and \
-              # Camera.Camera_pos[1] >= block.pos_y <= Camera.Camera_pos[1] - Camera.Camera_pos[3]:
+            if Camera.Camera_pos[0] + Camera.Camera_pos[2] + 200 >= block.pos_x >= Camera.Camera_pos[0] - 200 and \
+                Camera.Camera_pos[1] + 200 >= block.pos_y >= Camera.Camera_pos[1] - Camera.Camera_pos[3]:
+
                 block.draw(screen, [block.view_pos_x, block.view_pos_y, block.rect[2], block.rect[3]])
 
 
