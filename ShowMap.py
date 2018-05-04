@@ -1,5 +1,4 @@
 import math
-
 import pygame
 import sys
 import MapGenerator as mg
@@ -59,6 +58,7 @@ def transform_blocks():
         for col in range(mg.block_number_x):
             block_list[row][col].update_rect()
 
+
 def change_cam(delta_time, events):
     changed = False
 
@@ -68,29 +68,27 @@ def change_cam(delta_time, events):
 
     zoom_level = Camera_pos[2]/10000
 
-    if keys[pygame.K_d]:
+    if keys[pygame.K_d] and Camera_pos[0] + Camera_pos[2] < 10000:
         Camera_pos[0] = int(Camera_pos[0] + 10 * delta_time * zoom_level)
         changed = True
-    if keys[pygame.K_a]:
+    if keys[pygame.K_a] and Camera_pos[0] > 1:
         Camera_pos[0] = int(Camera_pos[0] - 10 * delta_time * zoom_level)
         changed = True
-    if keys[pygame.K_s]:
+    if keys[pygame.K_s] and Camera_pos[1] + Camera_pos[3] > 10000:
         Camera_pos[1] = int(Camera_pos[1] - 10 * delta_time * zoom_level)
         changed = True
-    if keys[pygame.K_w]:
+    if keys[pygame.K_w] and Camera_pos[1] < 10000:
         Camera_pos[1] = int(Camera_pos[1] + 10 * delta_time * zoom_level)
         changed = True
 
     for event in events:
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 4:
-                Camera_pos[2] -= 1000 * zoom_level
-#                Camera_pos[3] -= 1000 * zoom_level
+            if event.button == 4 and Camera_pos[2] > 500:
+                Camera_pos[2] -= 1000 * zoom_level / 2
                 Camera_pos[3] = Camera_pos[2] * (h / w)
                 changed = True
-            if event.button == 5:
-                Camera_pos[2] += 1000 * zoom_level
-#                Camera_pos[3] += 1000 * zoom_level
+            if event.button == 5 and Camera_pos[2] < 9000:
+                Camera_pos[2] += 1000 * zoom_level / 2
                 Camera_pos[3] = Camera_pos[2] * (h / w)
                 changed = True
 
