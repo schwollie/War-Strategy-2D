@@ -21,7 +21,7 @@ def draw_Blocks(screen):
                 block.draw(screen, [block.view_pos_x, block.view_pos_y, block.rect[2], block.rect[3]])
 
 
-def initialize_Map(screen):
+def initialize_Map(screen, settings):
     clock = pygame.time.Clock()
     mg.init()
     Camera.initialize_cam()
@@ -29,7 +29,7 @@ def initialize_Map(screen):
     Camera.transform_blocks()
     Camera.set_Blocks_settings()
 
-    bar = Sidebar.Sidebar()
+    bar = Sidebar.Sidebar(settings)
 
     while True:
         screen.fill(colors.white)
@@ -47,7 +47,9 @@ def initialize_Map(screen):
 
         draw_Blocks(screen)
 
-        bar.draw_rect(screen)
+        events = pygame.event.get()
+
+        bar.draw_all(screen, events)
 
         for event in events:
             if event == pygame.QUIT:
