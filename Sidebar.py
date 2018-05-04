@@ -29,8 +29,8 @@ class Sidebar(pygame.sprite.Sprite):
     def create_button(self):
         # big rect
         w, h = pygame.display.get_surface().get_size()
-        left = w-(w*0.1)
-        top = 0
+        left = w-(w*0.08)
+        top = h-(h*0.98)
         width = w*0.05
         height = h*0.05
         self.btn = Button.button(left, top, width, height, "+/-", self.settings, 1, function_to_call=self.change_sidebar_visibility)
