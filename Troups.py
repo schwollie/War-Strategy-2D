@@ -7,11 +7,13 @@ Bowman_image = pygame.image.load('images/Bowman.png')
 
 all_troups = []
 
+
 def load_pics():
     global Swordsman_image
     global Bowman_image
     Swordsman_image = pygame.image.load("images/Swordsman.png")
     Bowman_image = pygame.image.load("images/Bowman.png")
+
 
 def resize_pics(new_width, new_height):
     global Swordsman_image
@@ -21,9 +23,9 @@ def resize_pics(new_width, new_height):
     Bowman_image = transform_pic(Bowman_image, new_width, new_height)
 
 
-
 def transform_pic(pic, width, height):
     return pygame.transform.scale(pic, (int(width), int(height)))
+
 
 class Swordsman(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
