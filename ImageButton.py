@@ -12,7 +12,7 @@ class ImageButton(object):
         self.width = width
         self.height = height
         self.settings = settings
-        self.line_strength = int((math.sqrt(self.settings.resolution[0] * self.settings.resolution[1]) / 600))
+        self.line_strength = int((math.sqrt(self.settings.resolution[0] * self.settings.resolution[1]) / 300))
         self.text_size = int(self.settings.resolution_sqrt() / 24)
         self.function_to_call = function_to_call
         self.clock = pygame.time.Clock()
@@ -84,12 +84,12 @@ class ImageButton(object):
         if self.check_collide():
             self.color = colors.white
         else:
-            self.color = colors.light_grey
+            self.color = colors.black
 
-        screen.blit(self.image, self.rect)
+        screen.blit(self.image, [self.left, self.top, self.rect[2], self.rect[3]])
 
-        pygame.draw.rect(screen, self.color, [self.left + self.line_strength, self.top + self.line_strength,
-                                              self.width + self.line_strength, self.height + self.line_strength],
+        pygame.draw.rect(screen, self.color, [self.left, self.top,
+                                              self.width, self.height],
                          self.line_strength)
 
     def check_collide(self):
