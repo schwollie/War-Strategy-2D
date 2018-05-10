@@ -78,11 +78,11 @@ class Sidebar(pygame.sprite.Sprite):
         pygame.font.init()
         font = pygame.font.Font(None, int(w/25))
         title = font.render(("Gold: " + str(i)), True, colors.black)
-        text_rect = title.get_rect(topleft = (w-(w*0.18), h-(h*0.9)))
+        text_rect = title.get_rect(topleft=(w-(w*0.18), h-(h*0.9)))
         self.screen.blit(title, text_rect)
         self.draw_fps(screen, dt)
-       # self.swordsman_image(screen)
-        #self.bowman_image(screen)
+        self.swordsman_image(screen)
+        self.bowman_image(screen)
 
     def create_button(self):
         # big rect
