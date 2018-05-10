@@ -1,24 +1,26 @@
 import pygame
 import math
-#import
+import colors
 
-class button(object):
-    def __init__(self, left, top, width, height, text, settings, ID, function_to_call=None, arguments=None):
+
+class ImageButton(object):
+    def __init__(self, image_location,  left, top, width, height, settings, ID, function_to_call=None, arguments=None):
         self.arg = arguments
         self.ID = ID
         self.left = left
         self.top = top
         self.width = width
         self.height = height
-        self.text = str(text)
         self.settings = settings
-        self.line_strength = int((math.sqrt(self.settings.resolution[0] * self.settings.resolution[1]) / 400))
+        self.line_strength = int((math.sqrt(self.settings.resolution[0] * self.settings.resolution[1]) / 600))
         self.text_size = int(self.settings.resolution_sqrt() / 24)
         self.function_to_call = function_to_call
         self.clock = pygame.time.Clock()
         self.time_2 = 100
         self.time = 200 # in ms
         self.color = colors.white
+        self.selected = False
+        self.image = pygame.image.load(image_location).convert()
 
         self.Animation = False
 
@@ -27,7 +29,6 @@ class button(object):
         self.saved_top = self.top
         self.saved_width = self.width
         self.saved_height = self.height
-        self.saved_text_size = self.text_size
 
     def sound(self):
         sound = pygame.mixer.Sound("SOUND/Click.WAV")
@@ -54,13 +55,11 @@ class button(object):
             self.top = self.saved_top + self.settings.resolution[0]/200
             self.width = self.saved_width - self.settings.resolution[0]/200*2
             self.height = self.saved_height - self.settings.resolution[0]/200*2
-            self.text_size = self.saved_text_size - self.settings.resolution[0]/200
         elif self.time_2 < 0:
             self.left = self.saved_left
             self.top = self.saved_top
             self.width = self.saved_width
             self.height = self.saved_height
-            self.text_size = self.saved_text_size
 
             self.Animation = False
 
@@ -85,12 +84,9 @@ class button(object):
         else:
             self.color = colors.light_grey
 
-        pygame.draw.rect(screen, self.color,
-                         [self.left + self.line_strength, self.top + self.line_strength,
-                          self.width + self.line_strength,
-                          self.height + self.line_strength], 0)
+        screen.blit(self.image)
 
-        pygame.draw.rect(screen, colors.black, [self.left + self.line_strength, self.top + self.line_strength,
+        pygame.draw.rect(screen, self.color, [self.left + self.line_strength, self.top + self.line_strength,
                                                 self.width + self.line_strength, self.height + self.line_strength],
                          self.line_strength)
 
@@ -104,6 +100,12 @@ class button(object):
 
         return self.left <= mouse_pos[0] <= self.left + self.width \
                and self.top <= mouse_pos[1] <= self.top + self.height
+
+    def set_unselected(self):
+        self.selected = False
+
+    def set_selected(self):
+        self.selected = True
 
     def check_click_collide(self, events):
 
