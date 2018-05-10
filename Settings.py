@@ -6,6 +6,7 @@ import menu
 import Button
 
 
+
 poss_resolution = [[640, 480], [854, 450], [800, 480], [800, 600], [1024, 768], [1280, 720], [1280, 800], [1440, 960],
                    [1400, 1050], [1680, 1050], [1600, 1200], [1920, 1080], [1920, 1200], [2048, 1536], [2560, 1600]]
 
@@ -47,12 +48,11 @@ class ChangeSettings(object):
     def draw_title(self, screen, settings):
         pygame.font.init()
         font = pygame.font.Font(None, int(settings.resolution_sqrt() / 13))
-        title = font.render("Settings", True, colors.black)
+        title = font.render("Gold", True, colors.black)
         text_rect = title.get_rect(center=(settings.resolution[0] / 2, settings.resolution[1] / 6))
         screen.blit(title, text_rect)
 
     def draw_resolution_text(self):
-
         # resolution index
         font = pygame.font.Font(None, int(self.settings.resolution_sqrt() / 24))
         res = str(self.settings_new.resolution[0]) + " x " + str(self.settings_new.resolution[1])

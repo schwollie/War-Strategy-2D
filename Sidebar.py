@@ -2,6 +2,7 @@ import pygame
 import colors
 import Button
 import math
+import Settings
 
 Swordsman_image_side = pygame.image.load('images/Swordsman.png')
 Bowman_image_side = pygame.image.load('images/Bowman.png')
@@ -25,6 +26,12 @@ class Sidebar(pygame.sprite.Sprite):
         w, h = pygame.display.get_surface().get_size()
         pygame.draw.rect(screen, colors.red, (w-(0.2*w), 0, w-(0.2*w), h))
         pygame.draw.rect(screen, colors.dark_grey, (w - (0.2 * w), -100, w - (0.2 * w), (h+200)), int(w/50))
+        pygame.font.init()
+        font = pygame.font.Font(None, int(w))
+        title = font.render("Gold", True, colors.black)
+        text_rect = title.get_rect(center= (w-(w*0.1), h-(h*0.1)))
+        self.screen.blit(title, text_rect)
+
 
     def create_button(self):
         # big rect
