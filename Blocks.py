@@ -1,10 +1,10 @@
 import pygame
 import Camera
 
-Grass_image = pygame.image.load("images/Grass.jpg").convert()
-Dirt_image = pygame.image.load("images/Dirt.jpg").convert()
-Water_image = pygame.image.load("images/Water.jpg").convert()
-Rock_image = pygame.image.load("images/Rock.jpg").convert()
+Grass_image = pygame.image.load("images/Grass.jpg")
+Dirt_image = pygame.image.load("images/Dirt.jpg")
+Water_image = pygame.image.load("images/Water.jpg")
+Rock_image = pygame.image.load("images/Rock.jpg")
 
 
 def load_pics(res):
@@ -31,7 +31,7 @@ def resize_pics(new_width, new_height):
     global Dirt_image
     global Water_image
     global Rock_image
-    if Camera.Camera_pos[2] > 5000:
+    if Camera.Camera_pos[2] > 50000:
         load_pics("low")
     else:
         load_pics("high")
