@@ -17,6 +17,7 @@ class Sidebar(pygame.sprite.Sprite):
 
         self.create_button()
 
+
     def change_sidebar_visibility(self):
         if self.show_sidebar:
             self.show_sidebar = False
@@ -24,12 +25,17 @@ class Sidebar(pygame.sprite.Sprite):
             self.show_sidebar = True
 
     def draw_fps(self, screen, dt):
+        w, h = pygame.display.get_surface().get_size()
         pygame.font.init()
-        font = pygame.font.Font(None, 50)
+        font = pygame.font.Font(None, int(w/25))
         fps = str(int(1000 / dt))
-        title = font.render(fps, True, colors.black)
-        text_rect = title.get_rect(center=(100, 100))
+        title = font.render(("FPS: " + fps), True, colors.black)
+        text_rect = title.get_rect(topleft = (w-(w*0.18), h-(h*0.965)))
         screen.blit(title, text_rect)
+
+    def swordsman_image(self):
+        self.image =
+
 
     def draw_rect(self, screen, dt):
         self.screen = screen
@@ -40,7 +46,7 @@ class Sidebar(pygame.sprite.Sprite):
         pygame.font.init()
         font = pygame.font.Font(None, int(w/25))
         title = font.render(("Gold: " + str(i)), True, colors.black)
-        text_rect = title.get_rect(topleft = (w-(w*0.18), h-(h*0.85)))
+        text_rect = title.get_rect(topleft = (w-(w*0.18), h-(h*0.9)))
         self.screen.blit(title, text_rect)
         self.draw_fps(screen, dt)
 
