@@ -35,12 +35,12 @@ class Sidebar(pygame.sprite.Sprite):
 
     def swordsman_image(self, screen):
         w, h = pygame.display.get_surface().get_size()
-        self.image = pygame.image.load("images/Swordsman.png")
-        self.view_pos_x = 0
-        self.view_pos_y = 0
-        self.left = w-(w*0.18)
-        self.top = h-(h*0.7)
-        screen.blit(self.image, [self.view_pos_x, self.view_pos_y, self.left, self.top])
+        image = pygame.image.load("images/Swordsman.png")
+        view_pos_x = w-(w*0.18)
+        view_pos_y = h-(h*0.7)
+        left = 2
+        top = 2
+        screen.blit(image, [view_pos_x, view_pos_y, left, top])
 
 
     def draw_rect(self, screen, dt):
