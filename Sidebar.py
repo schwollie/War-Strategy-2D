@@ -16,7 +16,7 @@ class Sidebar(pygame.sprite.Sprite):
         self.btn_list = []
         self.img_btn_list = []
         self.button_list = []
-        self.create_button()
+        self.create_toggle_button()
         self.create_swordsman_image()
         self.create_bowman_image()
 
@@ -89,14 +89,15 @@ class Sidebar(pygame.sprite.Sprite):
         text_rect = title.get_rect(topleft=(w - (w * 0.18), h - (h * 0.9)))
         screen.blit(title, text_rect)
 
-    def create_button(self):
+    def create_toggle_button(self):
         # big rect
         w, h = pygame.display.get_surface().get_size()
         left = w-(w*0.08)
         top = h-(h*0.98)
         width = w*0.05
         height = h*0.05
-        self.btn = Button.button(left, top, width, height, "+/-", self.settings, 1, function_to_call=self.change_sidebar_visibility)
+        self.toggle_btn = Button.button(left, top, width, height, "+/-", self.settings, 1, function_to_call=self.change_sidebar_visibility)
+        self.btn_list.append(self.toggle_btn)
 
     def draw_all(self, screen, events, dt):
         if self.show_sidebar:
@@ -105,11 +106,13 @@ class Sidebar(pygame.sprite.Sprite):
             self.draw_fps(screen, dt)
             for btn in self.btn_list:
                 btn.draw_btn(screen)
-                if self.btn.check_click_collide(events):
+                if btn.check_click_collide(events):
                     btn.action()
 
-        self.btn.draw_btn(screen)
-
+        self.toggle_btn.draw_btn(screen)
+        if not self.show_sidebar:
+            if self.toggle_btn.check_click_collide(events):
+                self.toggle_btn.action()
 
 
 
