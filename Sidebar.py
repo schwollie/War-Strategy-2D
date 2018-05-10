@@ -24,14 +24,14 @@ class Sidebar(pygame.sprite.Sprite):
 
     def draw_rect(self, screen):
         self.screen = screen
-        i = 0
+        i = 100
         w, h = pygame.display.get_surface().get_size()
         pygame.draw.rect(screen, colors.red, (w-(0.2*w), 0, w-(0.2*w), h))
         pygame.draw.rect(screen, colors.dark_grey, (w - (0.2 * w), -100, w - (0.2 * w), (h+200)), int(w/50))
         pygame.font.init()
         font = pygame.font.Font(None, int(w/25))
-        title = font.render(("Gold:" + i), True, colors.black)
-        text_rect = title.get_rect(center= (w-(w*0.15), h-(h*0.85)))
+        title = font.render(("Gold: " + str(i)), True, colors.black)
+        text_rect = title.get_rect(topleft = (w-(w*0.18), h-(h*0.85)))
         self.screen.blit(title, text_rect)
 
 
