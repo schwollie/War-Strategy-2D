@@ -21,6 +21,7 @@ class ImageButton(object):
         self.color = colors.white
         self.selected = False
         self.image = pygame.image.load(image_location).convert()
+        self.image = pygame.transform.scale(self.image, (width, height))
 
         self.Animation = False
 
@@ -87,13 +88,8 @@ class ImageButton(object):
         screen.blit(self.image)
 
         pygame.draw.rect(screen, self.color, [self.left + self.line_strength, self.top + self.line_strength,
-                                                self.width + self.line_strength, self.height + self.line_strength],
+                                              self.width + self.line_strength, self.height + self.line_strength],
                          self.line_strength)
-
-        font = pygame.font.Font(None, int(self.text_size))
-        title = font.render(self.text, True, colors.black)
-        text_rect = title.get_rect(center=(self.left + self.width / 2, self.top + self.height / 1.72))
-        screen.blit(title, text_rect)
 
     def check_collide(self):
         mouse_pos = list(pygame.mouse.get_pos())
