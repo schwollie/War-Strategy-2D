@@ -110,7 +110,7 @@ class button(object):
 
         for event in events:
             if event.type in(pygame.MOUSEBUTTONUP, pygame.MOUSEBUTTONDOWN, pygame.mouse.get_pressed()) and event.button == 1:
-                self.time = 200
+                self.time = 150
                 self.time_2 = 100
                 if self.check_collide():
                     self.time = 300

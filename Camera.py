@@ -53,16 +53,16 @@ def change_cam(delta_time, events):
     zoom_level = Camera_pos[2]/10000
 
     if keys[pygame.K_d] and Camera_pos[0] + Camera_pos[2] < 10000:
-        Camera_pos[0] = int(Camera_pos[0] + 5 * delta_time * zoom_level)
+        Camera_pos[0] = int(Camera_pos[0] + 6 * delta_time * zoom_level)
         changed_pos = True
     if keys[pygame.K_a] and Camera_pos[0] > 1:
-        Camera_pos[0] = int(Camera_pos[0] - 5 * delta_time * zoom_level)
+        Camera_pos[0] = int(Camera_pos[0] - 6 * delta_time * zoom_level)
         changed_pos = True
     if keys[pygame.K_s] and Camera_pos[1] - Camera_pos[3] > 0:
-        Camera_pos[1] = int(Camera_pos[1] - 5 * delta_time * zoom_level)
+        Camera_pos[1] = int(Camera_pos[1] - 6 * delta_time * zoom_level)
         changed_pos = True
     if keys[pygame.K_w] and Camera_pos[1] < 10000:
-        Camera_pos[1] = int(Camera_pos[1] + 5 * delta_time * zoom_level)
+        Camera_pos[1] = int(Camera_pos[1] + 6 * delta_time * zoom_level)
         changed_pos = True
 
     for event in events:
@@ -76,25 +76,28 @@ def change_cam(delta_time, events):
                 Camera_pos[3] = Camera_pos[2] * (h / w)
                 changed_size = True
 
-    if Camera_pos[0] + Camera_pos[2] > 10000:
-        Camera_pos[0] = 10000 - Camera_pos[2]
+    if changed_pos or changed_size:
 
-    if Camera_pos[0] < 0:
-        Camera_pos[0] = 0
+        if Camera_pos[0] + Camera_pos[2] > 10000:
+            Camera_pos[0] = 10000 - Camera_pos[2]
 
-    if Camera_pos[1] - Camera_pos[3] < 0:
-        Camera_pos[1] = Camera_pos[3]
+        if Camera_pos[0] < 0:
+            Camera_pos[0] = 0
 
-    if Camera_pos[1] > 10000:
-        Camera_pos[1] = 10000
+        if Camera_pos[1] - Camera_pos[3] < 0:
+            Camera_pos[1] = Camera_pos[3]
 
-    if changed_pos:
+        if Camera_pos[1] > 10000:
+            Camera_pos[1] = 10000
+
         set_Blocks_settings()
+
+
     if changed_size:
         transform_blocks()
         set_Blocks_settings()
 
-    print(Camera_pos)
+    #print(Camera_pos)
 
     return
 
@@ -102,5 +105,5 @@ def change_cam(delta_time, events):
 def initialize_cam():
     global Camera_pos
     w, h = pygame.display.get_surface().get_size()
-    initiales_cam_y = 1000 * (h / w)
-    Camera_pos = [0, 10000, 1000, initiales_cam_y]
+    initiales_cam_y = 5000 * (h / w)
+    Camera_pos = [0, 10000, 5000, initiales_cam_y]

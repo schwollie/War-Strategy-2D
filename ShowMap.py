@@ -1,15 +1,14 @@
-import math
 import pygame
 import sys
 import MapGenerator as mg
 import colors
-import Blocks
 import Sidebar
 import Camera
 
 
 def draw_Blocks(screen):
     Block_List = mg.Map_Tiles_List
+
 
     for row in range(mg.block_number_x):
         for col in range(mg.block_number_y):
@@ -18,6 +17,13 @@ def draw_Blocks(screen):
 
                 Block_List[row][col].draw(screen, [Block_List[row][col].view_pos_x, Block_List[row][col].view_pos_y, Block_List[row][col].rect[2], Block_List[row][col].rect[3]])
 
+def draw_fps(screen, dt):
+    pygame.font.init()
+    font = pygame.font.Font(None, 100)
+    fps = str(int(1000/dt))
+    title = font.render(fps, True, colors.black)
+    text_rect = title.get_rect(center=(100, 100))
+    screen.blit(title, text_rect)
 
 def initialize_Map(screen, settings):
     clock = pygame.time.Clock()
@@ -32,8 +38,9 @@ def initialize_Map(screen, settings):
     while True:
         screen.fill(colors.white)
         clock.tick(60)
-        print(clock.get_time())
+        #print(clock.get_time())
         delta_time = clock.get_time()
+
 
         # -------------------------
 
@@ -44,6 +51,7 @@ def initialize_Map(screen, settings):
         Camera.change_cam(delta_time, events)
 
         draw_Blocks(screen)
+        draw_fps(screen, delta_time)
 
         bar.draw_all(screen, events)
 

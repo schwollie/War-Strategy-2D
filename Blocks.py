@@ -33,9 +33,9 @@ def transform_pic(pic, width, height):
     return pygame.transform.scale(pic, (int(width), int(height)))
 
 
-class MapSprite(pygame.sprite.Sprite):
+class MapSprite(pygame.sprite.DirtySprite):
     def __init__(self, get_image, pos_x, pos_y):
-        pygame.sprite.Sprite.__init__(self)
+        pygame.sprite.DirtySprite.__init__(self)
         self.get_image = get_image
         self.image = get_image()
         self.rect = self.image.get_rect()
@@ -46,12 +46,11 @@ class MapSprite(pygame.sprite.Sprite):
         self.view_pos_x = 0
         self.view_pos_y = 0
 
-        print(pos_x, pos_y)
-
     def draw(self, screen, pos):
         screen.blit(self.image, pos)
 
     def update_rect(self):
+        self.dirty = 1
         self.image = self.get_image()
         self.rect = self.image.get_rect()
         self.rect.left = self.pos_x
