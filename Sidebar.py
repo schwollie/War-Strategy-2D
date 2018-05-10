@@ -2,6 +2,7 @@ import pygame
 import colors
 import Button
 import ImageButton
+import PlayerStats
 import math
 import ShowMap
 
@@ -31,7 +32,7 @@ class Sidebar(pygame.sprite.Sprite):
         font = pygame.font.Font(None, int(w/25))
         fps = str(int(1000 / dt))
         title = font.render(("FPS: " + fps), True, colors.black)
-        text_rect = title.get_rect(topleft = (w-(w*0.18), h-(h*0.965)))
+        text_rect = title.get_rect(topleft=(w-(w*0.18), h-(h*0.965)))
         screen.blit(title, text_rect)
 
     def create_swordsman_image(self):
@@ -73,19 +74,22 @@ class Sidebar(pygame.sprite.Sprite):
         self.btn = Button.button(left, top, width, height, "SHOP!")
 
     def draw_rect(self, screen, dt):
-        self.screen = screen
         i = 100
         w, h = pygame.display.get_surface().get_size()
         pygame.draw.rect(screen, colors.red, (w-(0.2*w), 0, w-(0.2*w), h))
         pygame.draw.rect(screen, colors.dark_grey, (w - (0.2 * w), -100, w - (0.2 * w), (h+200)), int(w/50))
-        pygame.font.init()
-        font = pygame.font.Font(None, int(w/25))
-        title = font.render(("Gold: " + str(i)), True, colors.black)
-        text_rect = title.get_rect(topleft=(w-(w*0.18), h-(h*0.9)))
-        self.screen.blit(title, text_rect)
+        self.draw_gold(screen)
         self.draw_fps(screen, dt)
-        self.swordsman_image(screen)
-        self.bowman_image(screen)
+        #self.bowman_image(screen)
+
+    def draw_gold(self, screen):
+        Gold = PlayerStats.Gold
+        w, h = pygame.display.get_surface().get_size()
+        pygame.font.init()
+        font = pygame.font.Font(None, int(w / 25))
+        title = font.render(("Gold: " + str(Gold)), True, colors.black)
+        text_rect = title.get_rect(topleft=(w - (w * 0.18), h - (h * 0.9)))
+        screen.blit(title, text_rect)
 
     def create_button(self):
         # big rect
