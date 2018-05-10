@@ -55,13 +55,16 @@ class ImageButton(object):
         if self.time_2 > 0:
             self.left = self.saved_left + self.settings.resolution[0]/200
             self.top = self.saved_top + self.settings.resolution[0]/200
-            self.width = self.saved_width - self.settings.resolution[0]/200*2
-            self.height = self.saved_height - self.settings.resolution[0]/200*2
+            self.width = int(self.saved_width - self.settings.resolution[0]/200*2)
+            self.height = int(self.saved_height - self.settings.resolution[0]/200*2)
+            self.image = pygame.transform.scale(self.image, (self.width, self.height))
+
         elif self.time_2 < 0:
             self.left = self.saved_left
             self.top = self.saved_top
             self.width = self.saved_width
             self.height = self.saved_height
+            self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
             self.Animation = False
 
