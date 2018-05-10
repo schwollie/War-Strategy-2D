@@ -20,6 +20,7 @@ class ImageButton(object):
         self.time = 200 # in ms
         self.color = colors.white
         self.selected = False
+        self.image_loc = image_location
         self.image = pygame.image.load(image_location).convert()
         self.image = pygame.transform.scale(self.image, (width, height))
         self.rect = self.image.get_rect()
@@ -64,9 +65,11 @@ class ImageButton(object):
             self.top = self.saved_top
             self.width = self.saved_width
             self.height = self.saved_height
+            self.image = pygame.image.load(self.image_loc).convert()
             self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
             self.Animation = False
+
 
         pass
 
