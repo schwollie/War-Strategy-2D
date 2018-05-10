@@ -5,7 +5,7 @@ import random
 
 
 class button(object):
-    def __init__(self, left, top, width, height, text, settings, ID=random.randint(0, 9999999), function_to_call=None, arguments=None, last_button=False):
+    def __init__(self, left, top, width, height, text, settings, ID=0, function_to_call=None, arguments=None, last_button=False):
         self.arg = arguments
         self.ID = ID
         self.left = left

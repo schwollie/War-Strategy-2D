@@ -3,7 +3,7 @@ import colors
 import Button
 import ImageButton
 import PlayerStats
-import Settings
+import sys
 
 Swordsman_image_file = 'images/Swordsman.png'
 Bowman_image_file = 'images/Bowman.png'
@@ -20,6 +20,7 @@ class Sidebar(pygame.sprite.Sprite):
         self.create_toggle_button()
         self.create_swordsman_image()
         self.create_bowman_image()
+        self.create_exit_button()
 
     def change_sidebar_visibility(self):
         if self.show_sidebar:
@@ -76,14 +77,14 @@ class Sidebar(pygame.sprite.Sprite):
         height = h*0.17
         self.btn = Button.button(left, top, width, height, "SHOP!")
 
-    def exit_button(self, settings):
+    def create_exit_button(self):
         w, h = pygame.display.get_surface().get_size()
         left = int(w-(w*0.18))
         top = int(h-(h*0.20))
         width = int(w*0.17)
         height = int(h*0.17)
 
-        btn = Button.button(left, top, width, height, "EXIT", settings, sys.exit)
+        btn = Button.button(left, top, width, height, "EXIT", self.settings, function_to_call=sys.exit)
         self.btn_list.append(btn)
 
     def draw_rect(self, screen):
