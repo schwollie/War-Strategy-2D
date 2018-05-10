@@ -67,13 +67,18 @@ def change_cam(delta_time, events):
 
     for event in events:
         if event.type == pygame.MOUSEBUTTONDOWN:
+            zoom_level = zoom_level**1.4
             if event.button == 4 and Camera_pos[2] > 500:
-                Camera_pos[2] -= 1000 * zoom_level / 2
+                Camera_pos[2] -= 2000 * zoom_level / 2
                 Camera_pos[3] = Camera_pos[2] * (h / w)
+                Camera_pos[0] += 2000 * zoom_level / 4
+                Camera_pos[1] -= 2000*zoom_level / 4 * (h/w)
                 changed_size = True
             if event.button == 5 and Camera_pos[2] < 9000:
-                Camera_pos[2] += 1000 * zoom_level / 2
+                Camera_pos[2] += 2000 * zoom_level / 2
                 Camera_pos[3] = Camera_pos[2] * (h / w)
+                Camera_pos[0] -= 2000 * zoom_level / 4
+                Camera_pos[1] += 2000 * zoom_level / 4 * (h / w)
                 changed_size = True
 
     if changed_pos or changed_size:

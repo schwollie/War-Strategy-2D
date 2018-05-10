@@ -2,8 +2,8 @@ from random import *
 import Blocks
 import math
 
-block_number_x = 100
-block_number_y = 100
+block_number_x = 80
+block_number_y = 80
 
 Map_Tiles_List = [[0 for col in range(block_number_x)] for row in range(block_number_y)]
 
