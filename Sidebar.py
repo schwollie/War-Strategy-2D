@@ -4,8 +4,8 @@ import Button
 import math
 import ShowMap
 
-Swordsman_image_side = pygame.image.load('images/Swordsman.png')
-Bowman_image_side = pygame.image.load('images/Bowman.png')
+Swordsman_image = pygame.image.load('images/Swordsman.png')
+Bowman_image = pygame.image.load('images/Bowman.png')
 
 
 class Sidebar(pygame.sprite.Sprite):
@@ -38,7 +38,7 @@ class Sidebar(pygame.sprite.Sprite):
         title = font.render("Swordsman: ", True, colors.black)
         text_rect = title.get_rect(topleft=(w - (w * 0.18), h - (h * 0.74)))
         self.screen.blit(title, text_rect)
-        image = pygame.image.load("images/Swordsman.png")
+        image = Swordsman_image.convert()
         width = int(w*0.17)
         height = int(h*0.17)
         image = pygame.transform.scale(image, (width, height))
@@ -53,7 +53,7 @@ class Sidebar(pygame.sprite.Sprite):
         title = font.render("Bowman: ", True, colors.black)
         text_rect = title.get_rect(topleft=(w - (w * 0.18), h - (h * 0.5)))
         self.screen.blit(title, text_rect)
-        image = pygame.image.load("images/Bowman.png")
+        image = Bowman_image.convert()
         width = int(w*0.17)
         height = int(h*0.17)
         image = pygame.transform.scale(image, (width, height))
@@ -81,8 +81,8 @@ class Sidebar(pygame.sprite.Sprite):
         text_rect = title.get_rect(topleft = (w-(w*0.18), h-(h*0.9)))
         self.screen.blit(title, text_rect)
         self.draw_fps(screen, dt)
-        self.swordsman_image(screen)
-        self.bowman_image(screen)
+       # self.swordsman_image(screen)
+        #self.bowman_image(screen)
 
     def create_button(self):
         # big rect
