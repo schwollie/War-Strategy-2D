@@ -2,7 +2,6 @@ import pygame
 import colors
 import Button
 import math
-import Settings
 import ShowMap
 
 Swordsman_image_side = pygame.image.load('images/Swordsman.png')
@@ -16,7 +15,6 @@ class Sidebar(pygame.sprite.Sprite):
         self.settings = settings
 
         self.create_button()
-
 
     def change_sidebar_visibility(self):
         if self.show_sidebar:
@@ -36,12 +34,10 @@ class Sidebar(pygame.sprite.Sprite):
     def swordsman_image(self, screen):
         w, h = pygame.display.get_surface().get_size()
         image = pygame.image.load("images/Swordsman.png")
-        view_pos_x = w-(w*0.18)
-        view_pos_y = h-(h*0.7)
+        pygame.transform.scale(image, width, height)
         left = 2
         top = 2
         screen.blit(image, [view_pos_x, view_pos_y, left, top])
-
 
     def draw_rect(self, screen, dt):
         self.screen = screen
@@ -56,8 +52,6 @@ class Sidebar(pygame.sprite.Sprite):
         self.screen.blit(title, text_rect)
         self.draw_fps(screen, dt)
         self.swordsman_image(screen)
-
-
 
     def create_button(self):
         # big rect
