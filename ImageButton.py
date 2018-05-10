@@ -114,6 +114,7 @@ class ImageButton(object):
                     self.time = 300
                     self.sound()
                     self.Animation = True
+                    self.set_selected()
                     return True
         return False
 

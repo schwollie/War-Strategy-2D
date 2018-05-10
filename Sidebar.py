@@ -105,10 +105,11 @@ class Sidebar(pygame.sprite.Sprite):
             self.draw_fps(screen, dt)
             for btn in self.btn_list:
                 btn.draw_btn(screen)
+                if self.btn.check_click_collide(events):
+                    btn.action()
 
         self.btn.draw_btn(screen)
-        if self.btn.check_click_collide(events):
-            self.btn.action()
+
 
 
 
