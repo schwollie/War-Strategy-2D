@@ -48,7 +48,7 @@ def initialize_Map(screen, settings):
 
         draw_Blocks(screen)
 
-        bar.draw_all(screen, events)
+        bar.draw_all(screen, events, delta_time)
 
         for event in events:
             if event == pygame.QUIT:
