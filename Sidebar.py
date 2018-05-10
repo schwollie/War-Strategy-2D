@@ -20,6 +20,8 @@ class Sidebar(pygame.sprite.Sprite):
         self.create_button()
         self.create_swordsman_image()
 
+        self.button_list = []
+
     def change_sidebar_visibility(self):
         if self.show_sidebar:
             self.show_sidebar = False
@@ -50,20 +52,22 @@ class Sidebar(pygame.sprite.Sprite):
 
         img_btn = ImageButton.ImageButton(Swordsman_image_file, left, top, width, height, self.settings, 1)
 
+
     def bowman_image(self, screen):
         w, h = pygame.display.get_surface().get_size()
-        pygame.font.init()
+        """pygame.font.init()
         font = pygame.font.Font(None, int(w / 25))
         title = font.render("Bowman: ", True, colors.black)
         text_rect = title.get_rect(topleft=(w - (w * 0.18), h - (h * 0.5)))
-        self.screen.blit(title, text_rect)
-        image = Bowman_image.convert()
-        width = int(w*0.17)
-        height = int(h*0.17)
-        image = pygame.transform.scale(image, (width, height))
-        view_pos_x = w-(w*0.18)
-        view_pos_y = h-(h*0.46)
-        screen.blit(image, [view_pos_x, view_pos_y, width, height])
+        self.screen.blit(title, text_rect)"""
+
+        width = int(w * 0.17)
+        height = int(h * 0.17)
+        left = w-(w*0.18)
+        top = h-(h*0.46)
+
+        img_btn = ImageButton.ImageButton(Bowman_image_file, left, top, width, height, self.settings, 1)
+
 
     def create_shop_button(self):
         w, h = pygame.display.get_surface().get_size()
