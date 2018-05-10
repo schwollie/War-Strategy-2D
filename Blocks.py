@@ -6,11 +6,6 @@ Dirt_image = pygame.image.load("images/Dirt.jpg")
 Water_image = pygame.image.load("images/Water.jpg")
 Rock_image = pygame.image.load("images/Rock.jpg")
 
-Grass_image_low_res = pygame.image.load("images/Grass.jpg")
-Dirt_image_low_res = pygame.image.load("images/Dirt.jpg")
-Water_image_low_res = pygame.image.load("images/Water.jpg")
-Rock_image_low_res = pygame.image.load("images/Rock.jpg")
-
 
 def load_pics(res):
     global Grass_image
@@ -19,16 +14,16 @@ def load_pics(res):
     global Rock_image
 
     if res == "high":
-        Grass_image = pygame.image.load("images/Grass.jpg")
-        Dirt_image = pygame.image.load("images/Dirt.jpg")
-        Water_image = pygame.image.load("images/Water.jpg")
-        Rock_image = pygame.image.load("images/Rock.jpg")
+        Grass_image = pygame.image.load("images/Grass.jpg").convert()
+        Dirt_image = pygame.image.load("images/Dirt.jpg").convert()
+        Water_image = pygame.image.load("images/Water.jpg").convert()
+        Rock_image = pygame.image.load("images/Rock.jpg").convert()
 
     if res == "low":
-        Grass_image = pygame.image.load("images/low_res/Grass_low_res.jpg")
-        Dirt_image = pygame.image.load("images/low_res/Dirt_low_res.jpg")
-        Water_image = pygame.image.load("images/low_res/Water_low_res.jpg")
-        Rock_image = pygame.image.load("images/low_res/Rock_low_res.jpg")
+        Grass_image = pygame.image.load("images/low_res/Grass_low_res.jpg").convert()
+        Dirt_image = pygame.image.load("images/low_res/Dirt_low_res.jpg").convert()
+        Water_image = pygame.image.load("images/low_res/Water_low_res.jpg").convert()
+        Rock_image = pygame.image.load("images/low_res/Rock_low_res.jpg").convert()
 
 
 def resize_pics(new_width, new_height):
@@ -36,7 +31,7 @@ def resize_pics(new_width, new_height):
     global Dirt_image
     global Water_image
     global Rock_image
-    if Camera.Camera_pos[2] > 5000:
+    if Camera.Camera_pos[2] > 50000:
         load_pics("low")
     else:
         load_pics("high")
