@@ -33,12 +33,32 @@ class Sidebar(pygame.sprite.Sprite):
 
     def swordsman_image(self, screen):
         w, h = pygame.display.get_surface().get_size()
+        pygame.font.init()
+        font = pygame.font.Font(None, int(w / 25))
+        title = font.render("Swordsman: ", True, colors.black)
+        text_rect = title.get_rect(topleft=(w - (w * 0.18), h - (h * 0.74)))
+        self.screen.blit(title, text_rect)
         image = pygame.image.load("images/Swordsman.png")
-        width = int(w*0.05)
-        height = int(h*0.05)
+        width = int(w*0.17)
+        height = int(h*0.17)
         image = pygame.transform.scale(image, (width, height))
-        view_pos_x = w-(w*0.20)
+        view_pos_x = w-(w*0.18)
         view_pos_y = h-(h*0.7)
+        screen.blit(image, [view_pos_x, view_pos_y, width, height])
+
+    def bowman_image(self, screen):
+        w, h = pygame.display.get_surface().get_size()
+        pygame.font.init()
+        font = pygame.font.Font(None, int(w / 25))
+        title = font.render("Bowman: ", True, colors.black)
+        text_rect = title.get_rect(topleft=(w - (w * 0.18), h - (h * 0.5)))
+        self.screen.blit(title, text_rect)
+        image = pygame.image.load("images/Bowman.png")
+        width = int(w*0.17)
+        height = int(h*0.17)
+        image = pygame.transform.scale(image, (width, height))
+        view_pos_x = w-(w*0.18)
+        view_pos_y = h-(h*0.46)
         screen.blit(image, [view_pos_x, view_pos_y, width, height])
 
     def draw_rect(self, screen, dt):
@@ -54,6 +74,7 @@ class Sidebar(pygame.sprite.Sprite):
         self.screen.blit(title, text_rect)
         self.draw_fps(screen, dt)
         self.swordsman_image(screen)
+        self.bowman_image(screen)
 
     def create_button(self):
         # big rect
