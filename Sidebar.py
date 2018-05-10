@@ -61,6 +61,14 @@ class Sidebar(pygame.sprite.Sprite):
         view_pos_y = h-(h*0.46)
         screen.blit(image, [view_pos_x, view_pos_y, width, height])
 
+    def create_shop_button(self):
+        w, h = pygame.display.get_surface().get_size()
+        left = int(w-(w*0.18))
+        top = int(h-(h*0.20))
+        width = w*0.17
+        height = h*0.17
+        self.btn = Button.button(left, top, width, height, "SHOP!")
+
     def draw_rect(self, screen, dt):
         self.screen = screen
         i = 100
