@@ -22,6 +22,7 @@ class ImageButton(object):
         self.selected = False
         self.image = pygame.image.load(image_location).convert()
         self.image = pygame.transform.scale(self.image, (width, height))
+        self.rect = self.image.get_rect()
 
         self.Animation = False
 
@@ -85,7 +86,7 @@ class ImageButton(object):
         else:
             self.color = colors.light_grey
 
-        screen.blit(self.image)
+        screen.blit(self.image, self.rect)
 
         pygame.draw.rect(screen, self.color, [self.left + self.line_strength, self.top + self.line_strength,
                                               self.width + self.line_strength, self.height + self.line_strength],

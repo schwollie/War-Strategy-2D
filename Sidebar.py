@@ -3,8 +3,6 @@ import colors
 import Button
 import ImageButton
 import PlayerStats
-import math
-import ShowMap
 
 Swordsman_image_file = 'images/Swordsman.png'
 Bowman_image_file = 'images/Bowman.png'
@@ -17,10 +15,10 @@ class Sidebar(pygame.sprite.Sprite):
         self.settings = settings
         self.btn_list = []
         self.img_btn_list = []
+        self.button_list = []
         self.create_button()
         self.create_swordsman_image()
-
-        self.button_list = []
+        self.create_bowman_image()
 
     def change_sidebar_visibility(self):
         if self.show_sidebar:
@@ -51,9 +49,9 @@ class Sidebar(pygame.sprite.Sprite):
         top = h-(h*0.7)
 
         img_btn = ImageButton.ImageButton(Swordsman_image_file, left, top, width, height, self.settings, 1)
+        self.btn_list.append(img_btn)
 
-
-    def bowman_image(self, screen):
+    def create_bowman_image(self):
         w, h = pygame.display.get_surface().get_size()
         """pygame.font.init()
         font = pygame.font.Font(None, int(w / 25))
@@ -67,7 +65,7 @@ class Sidebar(pygame.sprite.Sprite):
         top = h-(h*0.46)
 
         img_btn = ImageButton.ImageButton(Bowman_image_file, left, top, width, height, self.settings, 1)
-
+        self.btn_list.append(img_btn)
 
     def create_shop_button(self):
         w, h = pygame.display.get_surface().get_size()
@@ -77,14 +75,10 @@ class Sidebar(pygame.sprite.Sprite):
         height = h*0.17
         self.btn = Button.button(left, top, width, height, "SHOP!")
 
-    def draw_rect(self, screen, dt):
-        i = 100
+    def draw_rect(self, screen):
         w, h = pygame.display.get_surface().get_size()
         pygame.draw.rect(screen, colors.red, (w-(0.2*w), 0, w-(0.2*w), h))
         pygame.draw.rect(screen, colors.dark_grey, (w - (0.2 * w), -100, w - (0.2 * w), (h+200)), int(w/50))
-        self.draw_gold(screen)
-        self.draw_fps(screen, dt)
-        #self.bowman_image(screen)
 
     def draw_gold(self, screen):
         Gold = PlayerStats.Gold
@@ -106,11 +100,19 @@ class Sidebar(pygame.sprite.Sprite):
 
     def draw_all(self, screen, events, dt):
         if self.show_sidebar:
-            self.draw_rect(screen, dt)
+            self.draw_rect(screen)
+            self.draw_gold(screen)
+            self.draw_fps(screen, dt)
+            for btn in self.btn_list:
+                btn.draw_btn(screen)
 
         self.btn.draw_btn(screen)
         if self.btn.check_click_collide(events):
             self.btn.action()
+
+
+
+
 
 
 
