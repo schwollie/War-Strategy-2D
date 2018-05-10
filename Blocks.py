@@ -46,8 +46,8 @@ class MapSprite(pygame.sprite.DirtySprite):
         self.view_pos_x = 0
         self.view_pos_y = 0
 
-    def draw(self, screen, pos):
-        screen.blit(self.image, pos)
+    def draw(self, screen):
+        screen.blit(self.image, [self.view_pos_x, self.view_pos_y, self.rect[2], self.rect[3]])
 
     def update_rect(self):
         self.dirty = 1

@@ -17,20 +17,9 @@ def draw_Blocks(screen):
             if Flag:
                 if Camera.Camera_pos[0] + Camera.Camera_pos[2] + 200 >= Block_List[row][col].pos_x >= Camera.Camera_pos[0] - 200 and \
                 Camera.Camera_pos[1] + 200 >= Block_List[row][col].pos_y >= Camera.Camera_pos[1] - Camera.Camera_pos[3]:
-                    Block_List[row][col].draw(screen, [Block_List[row][col].view_pos_x, Block_List[row][col].view_pos_y,
-                                                       Block_List[row][col].rect[2], Block_List[row][col].rect[3]])
+                    Block_List[row][col].draw(screen)
             else:
-                Block_List[row][col].draw(screen, [Block_List[row][col].view_pos_x, Block_List[row][col].view_pos_y, Block_List[row][col].rect[2], Block_List[row][col].rect[3]])
-
-
-def draw_fps(screen):
-    pygame.font.init()
-    font = pygame.font.Font(None, 50)
-    fps = str(int(1000/dt))
-    title = font.render(fps, True, colors.black)
-    text_rect = title.get_rect(center=(100, 100))
-    screen.blit(title, text_rect)
-
+                Block_List[row][col].draw(screen)
 
 def initialize_Map(screen, settings):
     clock = pygame.time.Clock()
@@ -58,7 +47,6 @@ def initialize_Map(screen, settings):
         Camera.change_cam(delta_time, events)
 
         draw_Blocks(screen)
-
 
         bar.draw_all(screen, events)
 
