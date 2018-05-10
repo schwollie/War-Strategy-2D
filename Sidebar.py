@@ -33,8 +33,8 @@ class Sidebar(pygame.sprite.Sprite):
         text_rect = title.get_rect(topleft = (w-(w*0.18), h-(h*0.965)))
         screen.blit(title, text_rect)
 
-    def swordsman_image(self):
-        self.image =
+ #   def swordsman_image(self):
+#        self.image =
 
 
     def draw_rect(self, screen, dt):
