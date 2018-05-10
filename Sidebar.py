@@ -3,6 +3,7 @@ import colors
 import Button
 import math
 import Settings
+import ShowMap
 
 Swordsman_image_side = pygame.image.load('images/Swordsman.png')
 Bowman_image_side = pygame.image.load('images/Bowman.png')
@@ -22,7 +23,7 @@ class Sidebar(pygame.sprite.Sprite):
         else:
             self.show_sidebar = True
 
-    def draw_rect(self, screen):
+    def draw_rect(self, screen, delta_time):
         self.screen = screen
         i = 100
         w, h = pygame.display.get_surface().get_size()
@@ -33,6 +34,7 @@ class Sidebar(pygame.sprite.Sprite):
         title = font.render(("Gold: " + str(i)), True, colors.black)
         text_rect = title.get_rect(topleft = (w-(w*0.18), h-(h*0.85)))
         self.screen.blit(title, text_rect)
+        ShowMap.draw_fps(screen, dt)
 
 
     def create_button(self):
@@ -44,7 +46,7 @@ class Sidebar(pygame.sprite.Sprite):
         height = h*0.05
         self.btn = Button.button(left, top, width, height, "+/-", self.settings, 1, function_to_call=self.change_sidebar_visibility)
 
-    def draw_all(self, screen, events):
+    def draw_all(self, screen, events, delta_time):
         if self.show_sidebar:
             self.draw_rect(screen)
 

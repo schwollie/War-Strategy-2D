@@ -58,9 +58,9 @@ def initialize_Map(screen, settings):
         Camera.change_cam(delta_time, events)
 
         draw_Blocks(screen)
-        draw_fps(screen, delta_time)
 
-        bar.draw_all(screen, events)
+
+        bar.draw_all(screen, events, delta_time)
 
         for event in events:
             if event == pygame.QUIT:
