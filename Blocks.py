@@ -31,7 +31,7 @@ def resize_pics(new_width, new_height):
     global Dirt_image
     global Water_image
     global Rock_image
-    if Camera.Camera_pos[2] > 50000:
+    if Camera.Camera_pos[2] > 5000:
         load_pics("low")
     else:
         load_pics("high")
@@ -63,7 +63,6 @@ class MapSprite(pygame.sprite.DirtySprite):
         screen.blit(self.image, [self.view_pos_x, self.view_pos_y, self.rect[2], self.rect[3]])
 
     def update_rect(self):
-        self.dirty = 1
         self.image = self.get_image()
         self.rect = self.image.get_rect()
         self.rect.left = self.pos_x

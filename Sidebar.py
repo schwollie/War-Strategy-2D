@@ -36,7 +36,7 @@ class Sidebar(pygame.sprite.Sprite):
         image = pygame.image.load("images/Swordsman.png")
         width = int(w*0.05)
         height = int(h*0.05)
-        pygame.transform.scale(image, (width, height))
+        image = pygame.transform.scale(image, (width, height))
         view_pos_x = w-(w*0.20)
         view_pos_y = h-(h*0.7)
         screen.blit(image, [view_pos_x, view_pos_y, width, height])
