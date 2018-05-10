@@ -23,7 +23,15 @@ class Sidebar(pygame.sprite.Sprite):
         else:
             self.show_sidebar = True
 
-    def draw_rect(self, screen, delta_time):
+    def draw_fps(self, screen, dt):
+        pygame.font.init()
+        font = pygame.font.Font(None, 50)
+        fps = str(int(1000 / dt))
+        title = font.render(fps, True, colors.black)
+        text_rect = title.get_rect(center=(100, 100))
+        screen.blit(title, text_rect)
+
+    def draw_rect(self, screen):
         self.screen = screen
         i = 100
         w, h = pygame.display.get_surface().get_size()
@@ -34,7 +42,8 @@ class Sidebar(pygame.sprite.Sprite):
         title = font.render(("Gold: " + str(i)), True, colors.black)
         text_rect = title.get_rect(topleft = (w-(w*0.18), h-(h*0.85)))
         self.screen.blit(title, text_rect)
-        ShowMap.draw_fps(screen, dt)
+        draw_fps(screen, dt)
+
 
 
     def create_button(self):
@@ -46,7 +55,7 @@ class Sidebar(pygame.sprite.Sprite):
         height = h*0.05
         self.btn = Button.button(left, top, width, height, "+/-", self.settings, 1, function_to_call=self.change_sidebar_visibility)
 
-    def draw_all(self, screen, events, delta_time):
+    def draw_all(self, screen, events):
         if self.show_sidebar:
             self.draw_rect(screen)
 

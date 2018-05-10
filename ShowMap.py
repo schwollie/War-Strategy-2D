@@ -23,7 +23,7 @@ def draw_Blocks(screen):
                 Block_List[row][col].draw(screen, [Block_List[row][col].view_pos_x, Block_List[row][col].view_pos_y, Block_List[row][col].rect[2], Block_List[row][col].rect[3]])
 
 
-def draw_fps(screen, dt):
+def draw_fps(screen):
     pygame.font.init()
     font = pygame.font.Font(None, 50)
     fps = str(int(1000/dt))
@@ -60,7 +60,7 @@ def initialize_Map(screen, settings):
         draw_Blocks(screen)
 
 
-        bar.draw_all(screen, events, delta_time)
+        bar.draw_all(screen, events)
 
         for event in events:
             if event == pygame.QUIT:
