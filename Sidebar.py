@@ -45,8 +45,8 @@ class Sidebar(pygame.sprite.Sprite):
         text_rect = title.get_rect(topleft=(w - (w * 0.18), h - (h * 0.74)))
         self.screen.blit(title, text_rect)"""
 
-        width = int(w*0.17)
-        height = int(h*0.17)
+        width = int(w*0.07)
+        height = width
         left = w-(w*0.18)
         top = h-(h*0.7)
 
@@ -61,10 +61,10 @@ class Sidebar(pygame.sprite.Sprite):
         text_rect = title.get_rect(topleft=(w - (w * 0.18), h - (h * 0.5)))
         self.screen.blit(title, text_rect)"""
 
-        width = int(w * 0.17)
-        height = int(h * 0.17)
-        left = w-(w*0.18)
-        top = h-(h*0.46)
+        width = int(w * 0.07)
+        height = width
+        left = w-(w*0.095)
+        top = h-(h*0.7)
 
         img_btn = ImageButton.ImageButton(Bowman_image_file, left, top, width, height, self.settings, 1)
         self.btn_list.append(img_btn)
@@ -77,12 +77,13 @@ class Sidebar(pygame.sprite.Sprite):
         height = h*0.17
         self.btn = Button.button(left, top, width, height, "SHOP!")
 
+
     def create_exit_button(self):
         w, h = pygame.display.get_surface().get_size()
         left = int(w-(w*0.18))
-        top = int(h-(h*0.20))
+        top = int(h-(h*0.10))
         width = int(w*0.17)
-        height = int(h*0.17)
+        height = int(h*0.07)
 
         btn = Button.button(left, top, width, height, "EXIT", self.settings, function_to_call=sys.exit)
         self.btn_list.append(btn)

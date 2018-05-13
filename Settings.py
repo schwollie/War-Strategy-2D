@@ -48,7 +48,7 @@ class ChangeSettings(object):
     def draw_title(self, screen, settings):
         pygame.font.init()
         font = pygame.font.Font(None, int(settings.resolution_sqrt() / 13))
-        title = font.render("Gold", True, colors.black)
+        title = font.render("Settings", True, colors.black)
         text_rect = title.get_rect(center=(settings.resolution[0] / 2, settings.resolution[1] / 6))
         screen.blit(title, text_rect)
 
