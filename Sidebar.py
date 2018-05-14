@@ -9,6 +9,7 @@ Swordsman_image_file = 'images/Swordsman.png'
 Bowman_image_file = 'images/Bowman.png'
 
 
+
 class Sidebar(pygame.sprite.Sprite):
     def __init__(self, settings):
         pygame.sprite.Sprite.__init__(self)
