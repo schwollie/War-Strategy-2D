@@ -28,56 +28,90 @@ def add_grass(row, col):
     Map_Tiles_List[row][col] = new_Block
 
 
-def lake():
-    number = randint(2, int(block_number_x/22))
-    for i in range(0, number):
-        print("--------------------")
+def land_masses():
+    count = 40
+    for i in range(count):
+        for x in range(0, block_number_x, 1):
+            for y in range(0, block_number_y, 1):
+                nearby_0_fields = 0
+                nearby_2_fields = 0
+                nearby_3_fields = 0
+                active_block = Map_Tiles_List[y][x]
 
-        start_pos_row = randint(10, block_number_x-10)
-        start_pos_col = randint(10, block_number_y - 10)
+                for x_2 in range(x-1, x+2):
+                    for y_2 in range(y-1, y+2):
 
-        max_width = randint(10, 20)
-        max_height = randint(max_width-5, max_width+5)
+                        if x_2 == x and y_2 == y:
+                            continue
 
-        if start_pos_row + max_width >= block_number_x:
-            max_width = block_number_x - start_pos_row
-        if start_pos_col + max_height >= block_number_y:
-            max_height = block_number_y - start_pos_col
+                        try:
+                            active_block == Map_Tiles_List[y_2][x_2]
+                        except IndexError:
+                            nearby_0_fields += 1
 
-        # fill whole rect
+                        try:
+                            if Map_Tiles_List[y_2][x_2] == 0:
+                                nearby_0_fields += 1
+                            elif Map_Tiles_List[y_2][x_2] == 2:
+                                nearby_2_fields += 1
+                            elif Map_Tiles_List[y_2][x_2] == 3:
+                                nearby_3_fields += 1
+                        except IndexError:
+                            continue
 
-        for row in range(start_pos_row, start_pos_row + max_width):
-            for col in range(start_pos_col, start_pos_col+ max_height):
-                Map_Tiles_List[col][row] = 1
-
-        # subtract some edges
-
-
-        mid_point_col = start_pos_col + int(max_height / 2)
-        mid_point_row = start_pos_row + int(max_width / 2)
-
-        for row in range(start_pos_row, start_pos_row + max_height):
-            for col in range(start_pos_col, start_pos_col + max_width):
-                x_distance = abs(mid_point_row - row)
-                y_distance = abs(mid_point_col - col)
-                distance_mid_point = int(math.sqrt(x_distance**2+y_distance**2))
-                del_chance = int(randint(0, distance_mid_point))
-
-                if del_chance > 3:
-                    Map_Tiles_List[col][row] = 0
+                if nearby_0_fields > 4:
+                    Map_Tiles_List[y][x] = 0
+                    continue
+                elif nearby_3_fields > 4:
+                    Map_Tiles_List[y][x] = 3
+                    continue
+                elif nearby_2_fields > 4:
+                    Map_Tiles_List[y][x] = 2
+                    continue
 
 
-def random():
+def lakes():
+    pass
+
+
+def random(grass_chance):
     for row in range(block_number_x):
         for col in range(block_number_y):
-            rand = randint(0, 3)
+            rand = choice(grass_chance)
             Map_Tiles_List[col][row] = rand
 
 
-def create_map():
+def add_grass_stripes():
+    for row in range(0, block_number_x):
+        for col in range(0, 5):
+            Map_Tiles_List[col][row] = 0
 
-    #lake()
-    random()
+    for row in range(0, block_number_x):
+        for col in range(block_number_x-5, block_number_x):
+            Map_Tiles_List[col][row] = 0
+
+
+def grass_chance():
+    num = randint(4, 20)
+    print(num)
+    liste = []
+
+    for i in range(num):
+        liste.extend((0, 2, 3))
+
+    liste.append(0)
+
+    return liste
+
+
+def create_map():
+    seed_num = randint(0, 999999)
+    print(seed_num)
+    seed(seed_num)
+
+    grass_chance_list = grass_chance()
+    random(grass_chance_list)
+    land_masses()
 
     for row in range(block_number_x):
         for col in range(block_number_y):
@@ -90,19 +124,9 @@ def create_map():
             elif Map_Tiles_List[row][col] == 3:
                 add_dirt(row, col)
 
-    for row in range(0, block_number_x):
-        for col in range(0, 5):
-            add_grass(col, row)
-
-    for row in range(0, block_number_x):
-        for col in range(block_number_x-5, block_number_x):
-            add_grass(col, row)
-
-
 
 def init():
     create_map()
-    print(Map_Tiles_List)
 
 
 
