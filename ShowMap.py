@@ -3,23 +3,22 @@ import sys
 import MapGenerator as mg
 import colors
 import Sidebar
+import Camera as cam
 import Camera
 
 
 def draw_Blocks(screen):
-    Block_List = mg.Map_Tiles_List
-    Flag = False
-    if Camera.Camera_pos[2] < 3000:
-        Flag = True
-
-    for row in range(mg.block_number_x):
-        for col in range(mg.block_number_y):
-            if Flag:
-                if Camera.Camera_pos[0] + Camera.Camera_pos[2] + 200 >= Block_List[row][col].pos_x >= Camera.Camera_pos[0] - 200 and \
-                Camera.Camera_pos[1] + 200 >= Block_List[row][col].pos_y >= Camera.Camera_pos[1] - Camera.Camera_pos[3]:
+    useBetterVersion = True
+    if useBetterVersion:
+        left, top, w, h = Camera.cam_to_view(Camera.Camera_pos)
+        #print("Camera: %s, View: %s" % ((Camera.Camera_pos, (left, top, w, h))))
+        screen.blit(cam.map_active_draw, (0, 0), (left, top, w, h))
+    else:
+        Block_List = mg.Map_Tiles_List
+        for row in range(mg.block_number_x):
+            for col in range(mg.block_number_y):
                     Block_List[row][col].draw(screen)
-            else:
-                Block_List[row][col].draw(screen)
+
 
 def initialize_Map(screen, settings):
     clock = pygame.time.Clock()
@@ -34,9 +33,7 @@ def initialize_Map(screen, settings):
     while True:
         screen.fill(colors.white)
         clock.tick(60)
-        #print(clock.get_time())
         delta_time = clock.get_time()
-
 
         # -------------------------
 

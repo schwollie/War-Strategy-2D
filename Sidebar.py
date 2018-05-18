@@ -9,7 +9,6 @@ Swordsman_image_file = 'images/Swordsman.png'
 Bowman_image_file = 'images/Bowman.png'
 
 
-
 class Sidebar(pygame.sprite.Sprite):
     def __init__(self, settings):
         pygame.sprite.Sprite.__init__(self)
@@ -40,12 +39,6 @@ class Sidebar(pygame.sprite.Sprite):
 
     def create_swordsman_image(self):
         w, h = pygame.display.get_surface().get_size()
-        """pygame.font.init()
-        font = pygame.font.Font(None, int(w / 25))
-        title = font.render("Swordsman: ", True, colors.black)
-        text_rect = title.get_rect(topleft=(w - (w * 0.18), h - (h * 0.74)))
-        self.screen.blit(title, text_rect)"""
-
         width = int(w*0.07)
         height = width
         left = w-(w*0.18)
@@ -56,12 +49,6 @@ class Sidebar(pygame.sprite.Sprite):
 
     def create_bowman_image(self):
         w, h = pygame.display.get_surface().get_size()
-        """pygame.font.init()
-        font = pygame.font.Font(None, int(w / 25))
-        title = font.render("Bowman: ", True, colors.black)
-        text_rect = title.get_rect(topleft=(w - (w * 0.18), h - (h * 0.5)))
-        self.screen.blit(title, text_rect)"""
-
         width = int(w * 0.07)
         height = width
         left = w-(w*0.095)
@@ -76,7 +63,7 @@ class Sidebar(pygame.sprite.Sprite):
         top = int(h-(h*0.20))
         width = w*0.17
         height = h*0.17
-        self.btn = Button.button(left, top, width, height, "SHOP!")
+        self.btn_shop = Button.button(left, top, width, height, "SHOP!")
 
 
     def create_exit_button(self):

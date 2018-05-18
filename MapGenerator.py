@@ -2,8 +2,8 @@ from random import *
 import Blocks
 import math
 
-block_number_x = 80
-block_number_y = 80
+block_number_x = 100
+block_number_y = 100
 
 Map_Tiles_List = [[0 for col in range(block_number_x)] for row in range(block_number_y)]
 
@@ -29,7 +29,7 @@ def add_grass(row, col):
 
 
 def land_masses():
-    count = 40
+    count = 30
     for i in range(count):
         for x in range(0, block_number_x, 1):
             for y in range(0, block_number_y, 1):
@@ -92,14 +92,13 @@ def add_grass_stripes():
 
 
 def grass_chance():
-    num = randint(4, 20)
-    print(num)
+    num = randint(100, 100)
     liste = []
 
     for i in range(num):
         liste.extend((0, 2, 3))
 
-    liste.append(0)
+    liste.extend((0, 2, 3))
 
     return liste
 
@@ -112,6 +111,8 @@ def create_map():
     grass_chance_list = grass_chance()
     random(grass_chance_list)
     land_masses()
+
+    add_grass_stripes()
 
     for row in range(block_number_x):
         for col in range(block_number_y):

@@ -114,9 +114,10 @@ def show_menu(settings):
 
     if settings.fullscreen:
         try:
-            screen = pygame.display.set_mode(settings.resolution, pygame.FULLSCREEN)
+            flags = pygame.FULLSCREEN | pygame.DOUBLEBUF
+            screen = pygame.display.set_mode(settings.resolution, flags)
         except pygame.error:
-            screen = pygame.display.set_mode((640, 480), pygame.FULLSCREEN)
+            screen = pygame.display.set_mode((640, 480), flags)
     else:
         try:
             screen = pygame.display.set_mode(settings.resolution)

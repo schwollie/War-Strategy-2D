@@ -7,23 +7,16 @@ Water_image = pygame.image.load("images/Water.jpg")
 Rock_image = pygame.image.load("images/Rock.jpg")
 
 
-def load_pics(res):
+def load_pics():
     global Grass_image
     global Dirt_image
     global Water_image
     global Rock_image
 
-    if res == "high":
-        Grass_image = pygame.image.load("images/Grass.jpg").convert()
-        Dirt_image = pygame.image.load("images/Dirt.jpg").convert()
-        Water_image = pygame.image.load("images/Water.jpg").convert()
-        Rock_image = pygame.image.load("images/Rock.jpg").convert()
-
-    if res == "low":
-        Grass_image = pygame.image.load("images/low_res/Grass_low_res.jpg").convert()
-        Dirt_image = pygame.image.load("images/low_res/Dirt_low_res.jpg").convert()
-        Water_image = pygame.image.load("images/low_res/Water_low_res.jpg").convert()
-        Rock_image = pygame.image.load("images/low_res/Rock_low_res.jpg").convert()
+    Grass_image = pygame.image.load("images/Grass.jpg").convert()
+    Dirt_image = pygame.image.load("images/Dirt.jpg").convert()
+    Water_image = pygame.image.load("images/Water.jpg").convert()
+    Rock_image = pygame.image.load("images/Rock.jpg").convert()
 
 
 def resize_pics(new_width, new_height):
@@ -31,10 +24,7 @@ def resize_pics(new_width, new_height):
     global Dirt_image
     global Water_image
     global Rock_image
-    if Camera.Camera_pos[2] > 5000:
-        load_pics("low")
-    else:
-        load_pics("high")
+    load_pics()
 
     Grass_image = transform_pic(Grass_image, new_width, new_height)
     Dirt_image = transform_pic(Dirt_image, new_width, new_height)
@@ -47,8 +37,9 @@ def transform_pic(pic, width, height):
 
 
 class MapSprite(pygame.sprite.DirtySprite):
-    def __init__(self, get_image, pos_x, pos_y):
+    def __init__(self, get_image, pos_x, pos_y, name):
         pygame.sprite.DirtySprite.__init__(self)
+        self.name = name
         self.get_image = get_image
         self.image = get_image()
         self.rect = self.image.get_rect()
@@ -60,7 +51,8 @@ class MapSprite(pygame.sprite.DirtySprite):
         self.view_pos_y = 0
 
     def draw(self, screen):
-        screen.blit(self.image, [self.view_pos_x, self.view_pos_y, self.rect[2], self.rect[3]])
+        #screen.blit(self.image, [self.view_pos_x, self.view_pos_y, self.rect[2], self.rect[3]])
+        screen.blit(self.image, (self.view_pos_x, self.view_pos_y))
 
     def update_rect(self):
         self.image = self.get_image()
@@ -71,19 +63,19 @@ class MapSprite(pygame.sprite.DirtySprite):
 
 class Grass(MapSprite):
     def __init__(self, pos_x, pos_y):
-        MapSprite.__init__(self, lambda: Grass_image, pos_x, pos_y)
+        MapSprite.__init__(self, lambda: Grass_image, pos_x, pos_y, "Grass")
 
 
 class Dirt(MapSprite):
     def __init__(self, pos_x, pos_y):
-        MapSprite.__init__(self, lambda: Dirt_image, pos_x, pos_y)
+        MapSprite.__init__(self, lambda: Dirt_image, pos_x, pos_y, "Dirt")
 
 
 class Water(MapSprite):
     def __init__(self, pos_x, pos_y):
-        MapSprite.__init__(self, lambda: Water_image, pos_x, pos_y)
+        MapSprite.__init__(self, lambda: Water_image, pos_x, pos_y, "Water")
 
 
 class Rock(MapSprite):
     def __init__(self, pos_x, pos_y):
-        MapSprite.__init__(self, lambda: Rock_image, pos_x, pos_y)
+        MapSprite.__init__(self, lambda: Rock_image, pos_x, pos_y, "Rock")
