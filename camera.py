@@ -316,13 +316,13 @@ def change_cam(delta_time, events):
     for event in events:
         if event.type == pygame.MOUSEBUTTONDOWN:
             zoom_level = zoom_level**1.4
-            if event.button == 4 and Camera_pos[2] > 500:
+            if event.button == 4 and Camera_pos[2] > 1000:
                 Camera_pos[2] -= 2000 * zoom_level / 2
                 Camera_pos[3] = Camera_pos[2] * (h / w)
                 Camera_pos[0] += 2000 * zoom_level / 4
                 Camera_pos[1] -= 2000*zoom_level / 4 * (h/w)
                 changed_size = True
-            if event.button == 5 and Camera_pos[2] < 9000:
+            if event.button == 5 and Camera_pos[2] < 10000:
                 Camera_pos[2] += 2000 * zoom_level / 2
                 Camera_pos[3] = Camera_pos[2] * (h / w)
                 Camera_pos[0] -= 2000 * zoom_level / 4
@@ -332,15 +332,23 @@ def change_cam(delta_time, events):
     if changed_pos or changed_size:
         if Camera_pos[0] + Camera_pos[2] > 10000:
             Camera_pos[0] = 10000 - Camera_pos[2]
+            #print("too far")
+            #print(Camera_pos)
 
         if Camera_pos[0] < 0:
             Camera_pos[0] = 0
+            #print("too far")
+            #print(Camera_pos)
 
         if Camera_pos[1] - Camera_pos[3] < 0:
             Camera_pos[1] = Camera_pos[3]
+            #print("too far")
+            #print(Camera_pos)
 
         if Camera_pos[1] > 10000:
             Camera_pos[1] = 10000
+            #print("too far")
+            #print(Camera_pos)
 
         set_Blocks_settings()
 
@@ -368,6 +376,7 @@ def view_to_cam(x,y):
     left = 10000 * x/w
     top = 10000 * (1 - y/h)
     return (left,top)
+
 
 def cam_to_view(cam):
     dx = 1.0 / (10000 / cam[2])

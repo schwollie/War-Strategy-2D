@@ -27,10 +27,10 @@ class ChangeSettings(object):
         for button in self.btn_list:
             button.draw_btn(self.screen)
 
-    def process_event(self, event):
+    def process_event(self, events):
         for button in self.btn_list:
-            if button.check_click_collide(event):
-                print(button.ID)
+            if button.check_click_collide(events):
+                #print(button.ID)
                 button.action()
 
     def change_res(self, direction):
@@ -172,14 +172,16 @@ def initiate(screen, settings, menu_object):
     draw_settings = ChangeSettings(screen, settings, settings_new)
 
     while True:
-        clock.tick()
+        clock.tick(60)
         draw_settings.draw_all()
 
-        for event in pygame.event.get():
+        events = pygame.event.get()
+
+        for event in events:
             if event.type == pygame.QUIT:
                 sys.exit()
             #print(event)
-            draw_settings.process_event(event)
+        draw_settings.process_event(events)
 
         pygame.display.flip()
 

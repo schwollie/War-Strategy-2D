@@ -21,6 +21,7 @@ class button(object):
         self.time_2 = 100
         self.time = 200 # in ms
         self.color = colors.white
+        self.last_color = colors.light_grey
 
         self.Animation = False
 
@@ -68,6 +69,10 @@ class button(object):
 
         pass
 
+    def on_touch_sound(self):
+        if self.color != self.last_color and self.color == colors.white:
+            self.sound()
+
     def draw_btn(self, screen):
 
         self.clock.tick()
@@ -84,8 +89,12 @@ class button(object):
 
         if self.check_collide():
             self.color = colors.white
+            self.on_touch_sound()
+            self.last_color = self.color
         else:
             self.color = colors.light_grey
+            self.on_touch_sound()
+            self.last_color = self.color
 
         pygame.draw.rect(screen, self.color,
                          [self.left + self.line_strength, self.top + self.line_strength,
@@ -107,15 +116,17 @@ class button(object):
         return self.left <= mouse_pos[0] <= self.left + self.width \
                and self.top <= mouse_pos[1] <= self.top + self.height
 
-    def check_click_collide(self, event):
-        if event.type in(pygame.MOUSEBUTTONUP, pygame.MOUSEBUTTONDOWN, pygame.mouse.get_pressed()) and event.button == 1:
-            self.time = 150
-            self.time_2 = 100
-            if self.check_collide():
-                self.time = 300
-                self.sound()
-                self.Animation = True
-                return True
+    def check_click_collide(self, events):
+
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1: #, pygame.MOUSEBUTTONDOWN, pygame.mouse.get_pressed()) and event.button == 1:
+                #self.time = 0
+                self.time_2 = 100
+                if self.check_collide():
+                    #self.time = 300
+                    self.sound()
+                    self.Animation = True
+                    return True
         return False
 
     def action(self):  # what happens if the button gets pushed

@@ -9,7 +9,7 @@ from camera import Camera
 
 
 def draw_Blocks(screen):
-    useBetterVersion = True
+    useBetterVersion = False
     if useBetterVersion:
         left, top, w, h = Camera.cam_to_view(Camera.Camera_pos)
         #print("Camera: %s, View: %s" % ((Camera.Camera_pos, (left, top, w, h))))
@@ -48,7 +48,7 @@ def initialize_Map(screen, settings):
 
     while True:
         screen.fill(colors.white)
-        clock.tick(30)
+        clock.tick(60)
 
         delta_time = clock.get_time()
 
@@ -104,7 +104,7 @@ def initialize_Map(screen, settings):
                 if event.key == pygame.K_MINUS:
                     zoom_out = False
 
-            bar.process_event(event)
+        bar.process_event(events)
 
         if move_up:
             camera.move_up(count)
@@ -133,7 +133,7 @@ def initialize_Map(screen, settings):
 
         if changed_pos or changed_size:
             vp_in_block = calc_view_port(camera, block_map)
-            print(camera.view_port(), vp_in_block)
+            #print(camera.view_port(), vp_in_block)
 
         block_map.draw(screen, vp_in_block)
         bar.draw_all(screen, delta_time)

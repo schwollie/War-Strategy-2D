@@ -126,9 +126,9 @@ class Menu(object):
     def start_battle(self):
         ShowMap.initialize_Map(self.screen, self.settings)
 
-    def process_event(self, event):
+    def process_event(self, events):
         for button in self.btn_list:
-            if button.check_click_collide(event):
+            if button.check_click_collide(events):
                 button.action()
 
 
@@ -163,11 +163,14 @@ def show_menu(settings):
         menu.screen.fill(colors.white)
         menu.draw_buttons()
 
-        for event in pygame.event.get():
+        events = pygame.event.get()
+
+        for event in events:
             if event.type == pygame.QUIT:
                 sys.exit()
-            print(event)
-            print(pygame.mouse.get_pos())
-            menu.process_event(event)
+            #print(event)
+            #print(pygame.mouse.get_pos())
+
+        menu.process_event(events)
 
         pygame.display.flip()

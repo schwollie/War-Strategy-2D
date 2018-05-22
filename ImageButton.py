@@ -84,10 +84,10 @@ class ImageButton(object):
         if self.Animation:
             self.click_animation()
 
-        #if self.check_collide():
-        #    self.color = colors.white
-        #else:
-        #    self.color = colors.black
+        if self.check_collide(pygame.mouse.get_pos()):
+            self.color = colors.white
+        else:
+            self.color = colors.black
 
         screen.blit(self.image, [self.left, self.top, self.rect[2], self.rect[3]])
 
@@ -107,17 +107,18 @@ class ImageButton(object):
     def set_selected(self):
         self.selected = True
 
-    def check_click_collide(self, event):
-        if event.type in(pygame.MOUSEBUTTONUP, pygame.MOUSEBUTTONDOWN, pygame.mouse.get_pressed()) and event.button == 1:
-            self.time = 150
-            self.time_2 = 100
-            if self.check_collide(pygame.mouse.get_pos()):
-                self.time = 300
-                self.sound()
-                self.Animation = True
-                self.set_selected()
-                return True
-        return False
+    def check_click_collide(self, events):
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                #self.time = 150
+                self.time_2 = 100
+                if self.check_collide(pygame.mouse.get_pos()):
+                    #self.time = 300
+                    self.sound()
+                    self.Animation = True
+                    self.set_selected()
+                    return True
+            return False
 
     def action(self):  # what happens if the button gets pushed
         if self.function_to_call:
