@@ -100,19 +100,23 @@ class Sidebar(pygame.sprite.Sprite):
         self.toggle_btn = Button.button(left, top, width, height, "+/-", self.settings, 1, function_to_call=self.change_sidebar_visibility)
         self.btn_list.append(self.toggle_btn)
 
-    def draw_all(self, screen, events, dt):
+    def draw_all(self, screen, dt):
         if self.show_sidebar:
             self.draw_rect(screen)
             self.draw_gold(screen)
             self.draw_fps(screen, dt)
             for btn in self.btn_list:
                 btn.draw_btn(screen)
-                if btn.check_click_collide(events):
-                    btn.action()
-
         else:
             self.toggle_btn.draw_btn(screen)
-            if self.toggle_btn.check_click_collide(events):
+
+    def process_event(self, event):
+        if self.show_sidebar:
+            for btn in self.btn_list:
+                if btn.check_click_collide(event):
+                    btn.action()
+        else:
+            if self.toggle_btn.check_click_collide(event):
                 self.toggle_btn.action()
 
 

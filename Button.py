@@ -107,17 +107,15 @@ class button(object):
         return self.left <= mouse_pos[0] <= self.left + self.width \
                and self.top <= mouse_pos[1] <= self.top + self.height
 
-    def check_click_collide(self, events):
-
-        for event in events:
-            if event.type in(pygame.MOUSEBUTTONUP, pygame.MOUSEBUTTONDOWN, pygame.mouse.get_pressed()) and event.button == 1:
-                self.time = 150
-                self.time_2 = 100
-                if self.check_collide():
-                    self.time = 300
-                    self.sound()
-                    self.Animation = True
-                    return True
+    def check_click_collide(self, event):
+        if event.type in(pygame.MOUSEBUTTONUP, pygame.MOUSEBUTTONDOWN, pygame.mouse.get_pressed()) and event.button == 1:
+            self.time = 150
+            self.time_2 = 100
+            if self.check_collide():
+                self.time = 300
+                self.sound()
+                self.Animation = True
+                return True
         return False
 
     def action(self):  # what happens if the button gets pushed

@@ -18,12 +18,14 @@ class Menu(object):
         self.screen_caption = pygame.display.set_caption('War Strategy 2D')
         self.screen_icon = pygame.display.set_icon(icon)
         self.btn_list = []
+        self.draw_btn_list = []
         pygame.font.init()
         self.create_settings_button(self.settings)
         self.create_start_button(self.settings)
         self.create_load_button(self.settings)
         self.create_battle_button(self.settings)
         self.create_exit_button(self.settings)
+        self.create_revert_btn(self.settings)
         self.event = pygame.event.get()
 
     def draw_buttons(self):
@@ -38,13 +40,8 @@ class Menu(object):
         pygame.draw.rect(self.screen, colors.black, [left+line_strength, top+line_strength, width+line_strength, height + line_strength], line_strength)
 
         self.draw_title()
-
-        events = pygame.event.get()
-
-        for button in self.btn_list:
+        for button in self.draw_btn_list:
             button.draw_btn(self.screen)
-            if button.check_click_collide(events):
-                button.action()
 
     def create_start_button(self, settings):
         left = int(self.settings.resolution[0] / 2 - self.settings.resolution[0] / 10)
@@ -54,6 +51,7 @@ class Menu(object):
 
         btn = Button.button(left, top, width, height, "Start New Game", settings, 1)
         self.btn_list.append(btn)
+        self.draw_btn_list.append(btn)
 
     def create_load_button(self, settings):
         left = int(self.settings.resolution[0] / 2 - self.settings.resolution[0] / 10)
@@ -63,6 +61,7 @@ class Menu(object):
 
         btn = Button.button(left, top, width, height, "Resume Game", settings, 2)
         self.btn_list.append(btn)
+        self.draw_btn_list.append(btn)
 
     def create_battle_button(self, settings):
         left = int(self.settings.resolution[0] / 2 - self.settings.resolution[0] / 10)
@@ -72,6 +71,7 @@ class Menu(object):
 
         btn = Button.button(left, top, width, height, "Play Battle", settings, 3, function_to_call=self.start_battle)
         self.btn_list.append(btn)
+        self.draw_btn_list.append(btn)
 
     def create_exit_button(self, settings):
         left = int(self.settings.resolution[0] / 2 - self.settings.resolution[0] / 10)
@@ -81,6 +81,7 @@ class Menu(object):
 
         btn = Button.button(left, top, width, height, "EXIT", settings, 4, sys.exit)
         self.btn_list.append(btn)
+        self.draw_btn_list.append(btn)
 
     def create_settings_button(self, settings):
         left = int(self.settings.resolution[0] / 2 - self.settings.resolution[0] / 10)
@@ -90,6 +91,7 @@ class Menu(object):
 
         btn = Button.button(left, top, width, height, "Settings", settings, 5, self.start_settings)
         self.btn_list.append(btn)
+        self.draw_btn_list.append(btn)
 
     def draw_title(self):
         pygame.font.init()
@@ -99,14 +101,36 @@ class Menu(object):
         self.screen.blit(title, text_rect)
 
     def start_settings(self):
-        self.settings = Settings.initiate(self.screen, self.settings)
+        self.settings = Settings.initiate(self.screen, self.settings, self)
         if self.settings.fullscreen:
             self.screen = pygame.display.set_mode(self.settings.resolution, pygame.FULLSCREEN)
         else:
             self.screen = pygame.display.set_mode(self.settings.resolution)
 
+    def create_revert_btn(self, settings):
+        left = int(self.settings.resolution[0] / 2 - self.settings.resolution[0] / 10)
+        top = int(self.settings.resolution[1] / 2 - self.settings.resolution[1] / 3.9 + self.settings.resolution[
+            1] / 11 * 4.8)
+        width = settings.resolution[0]
+        height = int((self.settings.resolution[1] / 2 + self.settings.resolution[1] / 3.7) - (
+        self.settings.resolution[1] / 2 - self.settings.resolution[1] / 3.7) / 0.33)
+
+        btn = Button.button(left, top, width, height, "Accept Settings", settings, 6, self.make_revert_btn_invisible)
+        self.btn_list.append(btn)
+
+    def make_revert_btn_invisible(self):
+        for btn in self.btn_list:
+            if btn.ID == 6:
+                self.btn_list.remove(btn)
+
     def start_battle(self):
         ShowMap.initialize_Map(self.screen, self.settings)
+
+    def process_event(self, event):
+        for button in self.btn_list:
+            if button.check_click_collide(event):
+                button.action()
+
 
 
 def show_menu(settings):
@@ -120,9 +144,9 @@ def show_menu(settings):
             screen = pygame.display.set_mode((640, 480), flags)
     else:
         try:
-            screen = pygame.display.set_mode(settings.resolution)
+            screen = pygame.display.set_mode(settings.resolution, pygame.DOUBLEBUF)
         except pygame.error:
-            screen = pygame.display.set_mode((640, 480))
+            screen = pygame.display.set_mode((640, 480), pygame.DOUBLEBUF)
 
     screen.fill(colors.white)
 
@@ -134,7 +158,7 @@ def show_menu(settings):
         # every time a button gets clicked he set this to False to prevent spamming
 
 
-        clock.tick(60)
+        clock.tick()
 
         menu.screen.fill(colors.white)
         menu.draw_buttons()
@@ -142,5 +166,8 @@ def show_menu(settings):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            print(event)
+            print(pygame.mouse.get_pos())
+            menu.process_event(event)
 
         pygame.display.flip()

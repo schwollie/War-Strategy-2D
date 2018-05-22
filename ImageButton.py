@@ -70,9 +70,6 @@ class ImageButton(object):
 
             self.Animation = False
 
-
-        pass
-
     def draw_btn(self, screen):
 
         self.clock.tick()
@@ -87,10 +84,10 @@ class ImageButton(object):
         if self.Animation:
             self.click_animation()
 
-        if self.check_collide():
-            self.color = colors.white
-        else:
-            self.color = colors.black
+        #if self.check_collide():
+        #    self.color = colors.white
+        #else:
+        #    self.color = colors.black
 
         screen.blit(self.image, [self.left, self.top, self.rect[2], self.rect[3]])
 
@@ -98,11 +95,11 @@ class ImageButton(object):
                                               self.width, self.height],
                          self.line_strength)
 
-    def check_collide(self):
-        mouse_pos = list(pygame.mouse.get_pos())
+    def check_collide(self, pos):
+        x, y = pos
 
-        return self.left <= mouse_pos[0] <= self.left + self.width \
-               and self.top <= mouse_pos[1] <= self.top + self.height
+        return self.left <= x <= self.left + self.width \
+               and self.top <= y <= self.top + self.height
 
     def set_unselected(self):
         self.selected = False
@@ -110,18 +107,16 @@ class ImageButton(object):
     def set_selected(self):
         self.selected = True
 
-    def check_click_collide(self, events):
-
-        for event in events:
-            if event.type in(pygame.MOUSEBUTTONUP, pygame.MOUSEBUTTONDOWN, pygame.mouse.get_pressed()) and event.button == 1:
-                self.time = 150
-                self.time_2 = 100
-                if self.check_collide():
-                    self.time = 300
-                    self.sound()
-                    self.Animation = True
-                    self.set_selected()
-                    return True
+    def check_click_collide(self, event):
+        if event.type in(pygame.MOUSEBUTTONUP, pygame.MOUSEBUTTONDOWN, pygame.mouse.get_pressed()) and event.button == 1:
+            self.time = 150
+            self.time_2 = 100
+            if self.check_collide(pygame.mouse.get_pos()):
+                self.time = 300
+                self.sound()
+                self.Animation = True
+                self.set_selected()
+                return True
         return False
 
     def action(self):  # what happens if the button gets pushed

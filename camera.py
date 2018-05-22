@@ -1,7 +1,9 @@
 import pygame
 import math
 import MapGenerator as mg
-import Blocks
+import blocks
+from coord_sys import CoordSys
+from pygame import Rect
 
 Camera_pos = [0, 0, 0, 0]  # left, top, width, height
 # Camera pos = coordinate system (10000 x 10000) the logic is on that coordinate system too
@@ -15,6 +17,100 @@ map_active_draw = None
 map_view_pos = [0, 0]
 
 
+class Camera:
+    MIN_X = 0
+    MAX_X = 10000
+    MIN_Y = 0
+    MAX_Y = 10000
+    MIN_ZOOM = 1
+    MAX_ZOOM = 10
+    STEP_SIZE_ON_LEVEL_1 = 100
+
+    def __init__(self, w, h):
+        self.w, self.h = w, h
+        self.ratio = self.h/self.w
+        self.pos = (5000, 5000)
+        self.coord_sys = CoordSys(Rect((0, 0), (10000, 10000)))
+        self.zoom_level = Camera.MIN_ZOOM
+
+    def move_up(self, count):
+        vp = self.view_port()
+        step = min(count * self.step_size(), vp.top)
+        self.move((0, -step))
+
+    def move_down(self, count):
+        vp = self.view_port()
+        step = min(count * self.step_size(), Camera.MAX_Y - vp.bottom)
+        self.move((0, step))
+
+    def move_left(self, count):
+        vp = self.view_port()
+        step = min(count * self.step_size(), vp.left)
+        self.move((-step, 0))
+
+    def move_right(self, count):
+        vp = self.view_port()
+        step = min(count * self.step_size(), Camera.MAX_X - vp.right)
+        self.move((step, 0))
+
+    def move(self, offset):
+        x, y = self.pos
+        dx, dy = offset
+        self.pos = (x + dx, y + dy)
+
+    def step_size(self):
+        return Camera.STEP_SIZE_ON_LEVEL_1 / self.zoom_level
+
+    def zoom_in(self):
+        self.zoom_level = min(self.zoom_level + 1, Camera.MAX_ZOOM)
+        self.clamp()
+
+    def zoom_out(self):
+        self.zoom_level = max(self.zoom_level - 1, Camera.MIN_ZOOM)
+        self.clamp()
+
+    def clamp(self):
+        vp = self.view_port()
+        x, y = self.pos
+        if vp.left < 0:
+            x -= vp.left
+        if vp.top < 0:
+            y -= vp.top
+        if vp.right > Camera.MAX_X:
+            x -= vp.right - Camera.MAX_X
+        if vp.bottom > Camera.MAX_Y:
+            y -= vp.bottom - Camera.MAX_Y
+        self.pos = (x, y)
+
+    def view_port(self):
+        width = 5000 / self.zoom_level
+        view_port = Rect(0, 0, 0, 0)
+        view_port.size = (width, width / self.ratio)
+        view_port.center = self.pos
+        return view_port
+
+
+def testCamera():
+    cam = Camera(640, 480)
+    print(cam.view_port())
+    cam.zoom_in()
+    print(cam.view_port())
+    cam.zoom_in()
+    print(cam.view_port())
+    cam.move_up(1)
+    print("up", cam.view_port())
+    cam.move_down(1)
+    print("down", cam.view_port())
+    cam.move_left(1)
+    print("left", cam.view_port())
+    cam.move_right(1)
+    print("right", cam.view_port())
+    cam.zoom_out()
+    print(cam.view_port())
+
+testCamera()
+
+'''
 def set_Blocks_settings():
     block_list = mg.Map_Tiles_List
     w, h = pygame.display.get_surface().get_size()
@@ -284,3 +380,4 @@ def cam_to_view(cam):
     left = int(v_w * (cam[0] / 10000.0))
     top = int(v_h * ((10000 - cam[1]) / 10000.0))
     return (left,top, vp_w, vp_h)
+'''
