@@ -37,6 +37,11 @@ class button(object):
         sound.set_volume(0.1)
         sound.play()
 
+    def sound_2(self):
+        sound = pygame.mixer.Sound("SOUND/Selected.WAV")
+        sound.set_volume(0.05)
+        sound.play()
+
     def block_click(self):
         self.time = self.time - self.clock.get_time()
 
@@ -71,7 +76,7 @@ class button(object):
 
     def on_touch_sound(self):
         if self.color != self.last_color and self.color == colors.white:
-            self.sound()
+            self.sound_2()
 
     def draw_btn(self, screen):
 

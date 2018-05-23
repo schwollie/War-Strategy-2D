@@ -27,7 +27,7 @@ def initialize_Map(screen, settings):
     map = mg.init(100, 100)
 
     w, h = pygame.display.get_surface().get_size()
-    camera = Camera(w, h)
+    camera = Camera(w/h)
     #Camera.initialize_cam()
     #Camera.transform_blocks()
     #Camera.set_Blocks_settings()
@@ -48,15 +48,14 @@ def initialize_Map(screen, settings):
 
     while True:
         screen.fill(colors.white)
-        clock.tick(60)
+        clock.tick(120)
 
         delta_time = clock.get_time()
+        #print(delta_time)
 
         # -------------------------
 
         events = pygame.event.get()
-
-
 
         # -----------------------------
 
@@ -76,7 +75,6 @@ def initialize_Map(screen, settings):
                     camera.zoom_out()
                     changed_size = True
             if event.type == pygame.KEYDOWN:
-                count = 1
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
                     move_up = True
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
@@ -90,7 +88,6 @@ def initialize_Map(screen, settings):
                 if event.key == pygame.K_MINUS:
                     zoom_out = True
             if event.type == pygame.KEYUP:
-                count = 1
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
                     move_up = False
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
@@ -107,16 +104,16 @@ def initialize_Map(screen, settings):
         bar.process_event(events)
 
         if move_up:
-            camera.move_up(count)
+            camera.move_up(delta_time)
             changed_pos = True
         if move_left:
-            camera.move_left(count)
+            camera.move_left(delta_time)
             changed_pos = True
         if move_down:
-            camera.move_down(count)
+            camera.move_down(delta_time)
             changed_pos = True
         if move_right:
-            camera.move_right(count)
+            camera.move_right(delta_time)
             changed_pos = True
         if zoom_in:
             camera.zoom_in()
@@ -133,7 +130,7 @@ def initialize_Map(screen, settings):
 
         if changed_pos or changed_size:
             vp_in_block = calc_view_port(camera, block_map)
-            #print(camera.view_port(), vp_in_block)
+            print(camera.view_port(), vp_in_block)
 
         block_map.draw(screen, vp_in_block)
         bar.draw_all(screen, delta_time)

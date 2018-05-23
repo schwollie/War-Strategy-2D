@@ -23,34 +23,33 @@ class Camera:
     MIN_Y = 0
     MAX_Y = 10000
     MIN_ZOOM = 1
-    MAX_ZOOM = 10
-    STEP_SIZE_ON_LEVEL_1 = 100
+    MAX_ZOOM = 4
+    STEP_SIZE_ON_LEVEL_1 = 3
 
-    def __init__(self, w, h):
-        self.w, self.h = w, h
-        self.ratio = self.h/self.w
+    def __init__(self, aspect_ratio):
+        self.ratio = aspect_ratio
         self.pos = (5000, 5000)
         self.coord_sys = CoordSys(Rect((0, 0), (10000, 10000)))
         self.zoom_level = Camera.MIN_ZOOM
 
-    def move_up(self, count):
+    def move_up(self, dt):
         vp = self.view_port()
-        step = min(count * self.step_size(), vp.top)
+        step = min(dt * self.step_size(), vp.top)
         self.move((0, -step))
 
-    def move_down(self, count):
+    def move_down(self, dt):
         vp = self.view_port()
-        step = min(count * self.step_size(), Camera.MAX_Y - vp.bottom)
+        step = min(dt * self.step_size(), Camera.MAX_Y - vp.bottom)
         self.move((0, step))
 
-    def move_left(self, count):
+    def move_left(self, dt):
         vp = self.view_port()
-        step = min(count * self.step_size(), vp.left)
+        step = min(dt * self.step_size(), vp.left)
         self.move((-step, 0))
 
-    def move_right(self, count):
+    def move_right(self, dt):
         vp = self.view_port()
-        step = min(count * self.step_size(), Camera.MAX_X - vp.right)
+        step = min(dt * self.step_size(), Camera.MAX_X - vp.right)
         self.move((step, 0))
 
     def move(self, offset):
@@ -85,30 +84,31 @@ class Camera:
     def view_port(self):
         width = 5000 / self.zoom_level
         view_port = Rect(0, 0, 0, 0)
-        view_port.size = (width, width / self.ratio)
+        view_port.size = (width, width)
         view_port.center = self.pos
         return view_port
 
 
 def testCamera():
-    cam = Camera(640, 480)
+    dt = 60
+    cam = Camera(480/640)
     print(cam.view_port())
     cam.zoom_in()
     print(cam.view_port())
     cam.zoom_in()
     print(cam.view_port())
-    cam.move_up(1)
+    cam.move_up(dt)
     print("up", cam.view_port())
-    cam.move_down(1)
+    cam.move_down(dt)
     print("down", cam.view_port())
-    cam.move_left(1)
+    cam.move_left(dt)
     print("left", cam.view_port())
-    cam.move_right(1)
+    cam.move_right(dt)
     print("right", cam.view_port())
     cam.zoom_out()
     print(cam.view_port())
 
-testCamera()
+#testCamera()
 
 '''
 def set_Blocks_settings():

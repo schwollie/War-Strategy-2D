@@ -5,7 +5,7 @@ from map import Map
 
 class MapGenerator:
     #ITERATIONS = 30
-    ITERATIONS = 10
+    ITERATIONS = 2
 
     def __init__(self, rows, cols):
         self.cols = cols
@@ -50,7 +50,7 @@ class MapGenerator:
                                 continue
 
                             try:
-                                active_block ==  self.tiles.get_field(row2, col2)
+                                active_block == self.tiles.get_field(row2, col2)
                             except IndexError:
                                 nearby_0_fields += 1
 
@@ -84,13 +84,15 @@ class MapGenerator:
                 self.tiles.set_field(row, col, rand)
 
     def add_grass_stripes(self):
-        for row in range(0, self.cols):
-            for col in range(0, 5):
+        for row in range(self.rows):
+            for col in range(0, 2):
                 self.tiles.set_field(row, col, Map.GRASS)
+                self.tiles.set_field(row, self.cols - col - 1, Map.GRASS)
 
-        for row in range(0, self.cols):
-            for col in range(self.cols-5, self.cols):
+        for col in range(0, self.cols):
+            for row in range(0, 2):
                 self.tiles.set_field(row, col, Map.GRASS)
+                self.tiles.set_field(self.rows - row - 1, col, Map.GRASS)
 
 
         #map = Map(self.rows, self.cols)

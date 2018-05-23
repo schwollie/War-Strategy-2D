@@ -67,23 +67,24 @@ class BlockMap:
         raise Exception('Unknown field type %d' % field)
 
     def update(self, width, height):
-        block_width = int(math.ceil(width / self.map.cols))
-        block_height = int(math.ceil(height / self.map.rows))
+        size = max(width, height)
+        delta = size / self.map.rows
+        block_width = math.ceil(delta)
+        block_height = math.ceil(delta)
         self.resize_sprites(block_width, block_height)
 
-        self.coord_sys = CoordSys(pygame.Rect((0,0), (width, height)))
-        self.canvas = pygame.Surface((width, height))
+        self.coord_sys = CoordSys(pygame.Rect((0,0), (size, size)))
+        self.canvas = pygame.Surface((size, size))
 
-        #print('Start')
         y = 0
         for row in range(self.map.rows):
             x = 0
             for col in range(self.map.cols):
                 sprite = self.get_sprites(row, col)
                 self.canvas.blit(sprite, (x, y))
-                x += block_width
-            y += block_height
-        #print('End')
+                x += delta
+            y += delta
+        print("Final size: %s, %s" % (x, y))
 
     def draw(self, screen, view_port):
         screen.blit(self.canvas, (0, 0), area=view_port)

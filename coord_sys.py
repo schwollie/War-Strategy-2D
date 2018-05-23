@@ -26,9 +26,11 @@ class CoordSys:
         return new_x, new_y
 
     def transform_rect(self, rect, target_sys):
-        new_top_left = self.transform_point(rect.topleft, target_sys)
-        new_bottom_right = self.transform_point(rect.bottomright, target_sys)
-        return Rect(new_top_left, new_bottom_right)
+        topleft = self.transform_point(rect.topleft, target_sys)
+        bottomright = self.transform_point(rect.bottomright, target_sys)
+        l, t = topleft
+        r, b = bottomright
+        return Rect(topleft, (r-l, b-t))
 
 
 class CoordPoint:
