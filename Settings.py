@@ -93,13 +93,13 @@ class ChangeSettings(object):
         width = int(self.settings.resolution[1] / 20)
         height = width
 
-        btn = Button.button(left, top, width, height, ">", self.settings, 10, self.change_volume, "higher")
+        btn = Button.button_2(left, top, width, height, ">", self.settings, 10, self.change_volume, "higher")
         self.btn_list.append(btn)
 
         left = int(self.settings.resolution[0] / 2 - self.settings.resolution[0] / 9 - width)
         top = int(self.settings.resolution[1] / 3.8 * 1.44)
 
-        btn2 = Button.button(left, top, width, height, "<", self.settings, 11, self.change_volume, "lower")
+        btn2 = Button.button_2(left, top, width, height, "<", self.settings, 11, self.change_volume, "lower")
         self.btn_list.append(btn2)
 
     def draw_volume_text(self):
