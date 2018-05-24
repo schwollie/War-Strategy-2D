@@ -21,10 +21,9 @@ def draw_Blocks(screen):
                     Block_List[row][col].draw(screen)
 
 
-
 def initialize_Map(screen, settings):
     clock = pygame.time.Clock()
-    map = mg.init(100, 100)
+    map = mg.init(100, 100, screen, settings)
 
     w, h = pygame.display.get_surface().get_size()
     camera = Camera(w/h)

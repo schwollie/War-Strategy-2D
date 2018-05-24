@@ -1,17 +1,20 @@
 from random import *
 import blocks
 from map import Map
-
+import loading_screen
 
 class MapGenerator:
-    #ITERATIONS = 30
-    ITERATIONS = 2
 
-    def __init__(self, rows, cols):
+    def __init__(self, rows, cols, screen, settings):
+        self.ITERATIONS = 31
         self.cols = cols
         self.rows = rows
-
+        self.screen = screen
+        self.settings = settings
         self.tiles = Map(rows, cols)
+        self.load_screen = loading_screen.LoadingScreen(self.ITERATIONS, self.settings)
+        self.actual_step = 0
+
 
     # def add_water(self, row, col):
     #     new_Block = Blocks.Water(10000/self.rows*col, 10000 - 10000/self.cols*row)
@@ -32,9 +35,15 @@ class MapGenerator:
     #     new_Block = Blocks.Grass(10000/self.rows*col, 10000 - 10000/self.cols*row)
     #     self.tiles[row][col] = new_Block
 
+    def draw_status(self):
+        self.load_screen.update(self.actual_step)
+        self.load_screen.draw(self.screen)
+
     def land_masses(self):
-        count = MapGenerator.ITERATIONS
+        count = self.ITERATIONS
         for i in range(count):
+            self.actual_step = i
+            self.draw_status()
             print('Pass %d' % i)
             for col in range(self.cols):
                 for row in range(self.rows):
@@ -108,12 +117,12 @@ class MapGenerator:
         #            self.add_dirt(row, col)
 
 
-def create_map(rows, cols):
+def create_map(rows, cols, screen, settings):
     seed_num = randint(0, 999999)
     print(seed_num)
     seed(seed_num)
 
-    g = MapGenerator(rows, cols)
+    g = MapGenerator(rows, cols, screen, settings)
     grass_chance_list = grass_chance()
     g.random(grass_chance_list)
     g.land_masses()
@@ -121,8 +130,8 @@ def create_map(rows, cols):
     return g.tiles
 
 
-def init(rows, cols):
-    map = create_map(rows, cols)
+def init(rows, cols, screen, settings):
+    map = create_map(rows, cols, screen, settings)
     print(map.text())
     return map
 
