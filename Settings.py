@@ -22,6 +22,7 @@ class ChangeSettings(object):
         self.create_exit()
         self.create_res()
         self.create_fullscreen()
+        self.create_volume()
 
     def draw_buttons(self):
         for button in self.btn_list:
@@ -48,12 +49,12 @@ class ChangeSettings(object):
         else:
             self.settings_new.fullscreen = True
 
-    def draw_title(self, screen, settings):
+    def draw_title(self):
         pygame.font.init()
-        font = pygame.font.Font(None, int(settings.resolution_sqrt() / 13))
+        font = pygame.font.Font(None, int(self.settings.resolution_sqrt() / 13))
         title = font.render("Settings", True, colors.black)
-        text_rect = title.get_rect(center=(settings.resolution[0] / 2, settings.resolution[1] / 6))
-        screen.blit(title, text_rect)
+        text_rect = title.get_rect(center=(self.settings.resolution[0] / 2, self.settings.resolution[1] / 6))
+        self.screen.blit(title, text_rect)
 
     def draw_resolution_text(self):
         # resolution index
@@ -84,6 +85,50 @@ class ChangeSettings(object):
 
         btn2 = Button.button(left, top, width, height, "<", self.settings, 1, self.change_res, "lower")
         self.btn_list.append(btn2)
+
+    def create_volume(self):
+
+        left = int(self.settings.resolution[0] / 2 + self.settings.resolution[0] / 9)
+        top = int(self.settings.resolution[1] / 3.8 * 1.44)
+        width = int(self.settings.resolution[1] / 20)
+        height = width
+
+        btn = Button.button(left, top, width, height, ">", self.settings, 10, self.change_volume, "higher")
+        self.btn_list.append(btn)
+
+        left = int(self.settings.resolution[0] / 2 - self.settings.resolution[0] / 9 - width)
+        top = int(self.settings.resolution[1] / 3.8 * 1.44)
+
+        btn2 = Button.button(left, top, width, height, "<", self.settings, 11, self.change_volume, "lower")
+        self.btn_list.append(btn2)
+
+    def draw_volume_text(self):
+        res = str(int(self.settings_new.volume*100))
+
+        # ------------ text
+
+        font = pygame.font.Font(None, int(self.settings.resolution_sqrt() / 24))
+        title = font.render(res, True, colors.black)
+        text_rect = title.get_rect(center=(self.settings.resolution[0] / 2, self.settings.resolution[1] / 3.4 * 1.42))
+        self.screen.blit(title, text_rect)
+        # ------------- text
+
+        title = font.render("Volume", True, colors.black)
+        text_rect = title.get_rect(
+            center=(self.settings.resolution[0] / 2 - self.settings.resolution[0] / 3, self.settings.resolution[1] / 3.4 * 1.42))
+        self.screen.blit(title, text_rect)
+
+    def change_volume(self, direction):
+        if direction == "higher":
+            self.settings_new.volume += 0.02
+            if self.settings_new.volume > 1:
+                self.settings_new.volume = 0
+            self.settings.volume = self.settings_new.volume
+        if direction == "lower":
+            self.settings_new.volume -= 0.02
+            if self.settings_new.volume < 0:
+                self.settings_new.volume = 1
+            self.settings.volume = self.settings_new.volume
 
     def draw_fullscreen_text(self):
         if self.settings_new.fullscreen:
@@ -138,9 +183,10 @@ class ChangeSettings(object):
         self.screen.fill(colors.white)
 
         # ---------------
-        self.draw_title(self.screen, self.settings)
+        self.draw_title()
         self.draw_resolution_text()
         self.draw_fullscreen_text()
+        self.draw_volume_text()
 
         # --------------
         self.draw_buttons()
@@ -168,6 +214,7 @@ def initiate(screen, settings, menu_object):
     settings_new = Saved_Settings.Settings()
     settings_new.fullscreen = settings.fullscreen
     settings_new.resolution = settings.resolution
+    settings_new.volume = settings.volume
 
     draw_settings = ChangeSettings(screen, settings, settings_new)
 

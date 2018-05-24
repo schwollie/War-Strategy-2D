@@ -21,6 +21,7 @@ class MapSprite(pygame.sprite.DirtySprite):
         screen.blit(self.image, pos)
 
 
+"""
 class Grass(MapSprite):
     def __init__(self):
         MapSprite.__init__(self, lambda: Grass_image, "Grass")
@@ -39,6 +40,7 @@ class Water(MapSprite):
 class Rock(MapSprite):
     def __init__(self):
         MapSprite.__init__(self, lambda: Rock_image, "Rock")
+"""
 
 
 class BlockMap:
@@ -51,12 +53,16 @@ class BlockMap:
         self.dirt = pygame.image.load("images/Dirt.jpg").convert()
         self.water = pygame.image.load("images/Water.jpg").convert()
         self.rock = pygame.image.load("images/Rock.jpg").convert()
+        self.flowers = pygame.image.load("images/flowers.png").convert_alpha()
+        self.tree = pygame.image.load("images/tree.png").convert_alpha()
 
     def resize_sprites(self, w, h):
         self.grass_sprite = transform_pic(self.grass, w, h)
         self.dirt_sprite = transform_pic(self.dirt, w, h)
         self.water_sprite = transform_pic(self.water, w, h)
         self.rock_sprite = transform_pic(self.rock, w, h)
+        self.tree = transform_pic(self.tree, w, h)
+        self.flowers = transform_pic(self.flowers, w, h)
 
     def get_sprites(self, row, col):
         field = self.map.get_field(row, col)

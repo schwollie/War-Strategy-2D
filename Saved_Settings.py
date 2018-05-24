@@ -9,6 +9,7 @@ class Settings(object):
     def __init__(self):
         self.fullscreen = False
         self.resolution = [640, 480]
+        self.volume = 0.5
 
     def resolution_sqrt(self):
         return int(math.sqrt(self.resolution[0] * self.resolution[1]))

@@ -39,6 +39,9 @@ class MapGenerator:
         self.load_screen.update(self.actual_step)
         self.load_screen.draw(self.screen)
 
+    def add_flowers(self):
+        pass
+
     def land_masses(self):
         count = self.ITERATIONS
         for i in range(count):

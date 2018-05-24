@@ -9,16 +9,9 @@ from camera import Camera
 
 
 def draw_Blocks(screen):
-    useBetterVersion = False
-    if useBetterVersion:
-        left, top, w, h = Camera.cam_to_view(Camera.Camera_pos)
-        #print("Camera: %s, View: %s" % ((Camera.Camera_pos, (left, top, w, h))))
-        screen.blit(cam.map_active_draw, (0, 0), (left, top, w, h))
-    else:
-        Block_List = mg.Map_Tiles_List
-        for row in range(mg.block_number_x):
-            for col in range(mg.block_number_y):
-                    Block_List[row][col].draw(screen)
+    left, top, w, h = Camera.cam_to_view(Camera.Camera_pos)
+    #print("Camera: %s, View: %s" % ((Camera.Camera_pos, (left, top, w, h))))
+    screen.blit(cam.map_active_draw, (0, 0), (left, top, w, h))
 
 
 def initialize_Map(screen, settings):

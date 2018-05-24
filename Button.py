@@ -34,12 +34,12 @@ class button(object):
 
     def sound(self):
         sound = pygame.mixer.Sound("SOUND/Click.WAV")
-        sound.set_volume(0.1)
+        sound.set_volume(self.settings.volume)
         sound.play()
 
     def sound_2(self):
         sound = pygame.mixer.Sound("SOUND/Selected.WAV")
-        sound.set_volume(0.05)
+        sound.set_volume(self.settings.volume*0.5)
         sound.play()
 
     def block_click(self):
