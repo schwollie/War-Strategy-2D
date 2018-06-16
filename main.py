@@ -9,6 +9,6 @@ pygame.mixer.init()
 
 # show intro ?
 
-Saved_Settings.loadSettings(Saved_Settings.FILENAME)
+settings = Saved_Settings.loadSettings(Saved_Settings.FILENAME)
 
 menu.show_menu(settings)

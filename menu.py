@@ -2,6 +2,7 @@ import math
 import sys
 
 import pygame
+import Saved_Settings
 
 import Button
 import Settings
@@ -41,6 +42,7 @@ class Menu(object):
 
         self.draw_title()
         for button in self.draw_btn_list:
+            print(button)
             button.draw_btn(self.screen)
 
     def create_start_button(self, settings):
@@ -108,20 +110,25 @@ class Menu(object):
             self.screen = pygame.display.set_mode(self.settings.resolution)
 
     def create_revert_btn(self, settings):
-        left = int(self.settings.resolution[0] / 2 - self.settings.resolution[0] / 10)
-        top = int(self.settings.resolution[1] / 2 - self.settings.resolution[1] / 3.9 + self.settings.resolution[
-            1] / 11 * 4.8)
-        width = settings.resolution[0]
-        height = int((self.settings.resolution[1] / 2 + self.settings.resolution[1] / 3.7) - (
-        self.settings.resolution[1] / 2 - self.settings.resolution[1] / 3.7) / 0.33)
+        left = 1
+        top = 1
+        width = settings.resolution[0]/5
+        height = settings.resolution[1]/13
 
-        btn = Button.button(left, top, width, height, "Accept Settings", settings, 6, self.make_revert_btn_invisible)
+        btn = Button.button_3(left, top, width, height, "Revert Settings", settings, 33, self.revert_settings,
+                              info_text="set Settings to Default and close the Window")
         self.btn_list.append(btn)
 
-    def make_revert_btn_invisible(self):
-        for btn in self.btn_list:
-            if btn.ID == 6:
-                self.btn_list.remove(btn)
+        self.draw_btn_list.append(btn)
+
+    def revert_settings(self):
+        self.settings.fullscreen = False
+        self.settings.volume = 0.5
+        self.settings.resolution = [640, 480]
+        Saved_Settings.saveSettings(self.settings, Saved_Settings.FILENAME)
+
+        self.screen = pygame.display.set_mode(self.settings.resolution, self.settings.fullscreen)
+        sys.exit()
 
     def start_battle(self):
         ShowMap.initialize_Map(self.screen, self.settings)
@@ -130,7 +137,6 @@ class Menu(object):
         for button in self.btn_list:
             if button.check_click_collide(events):
                 button.action()
-
 
 
 def show_menu(settings):
