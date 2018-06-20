@@ -32,7 +32,7 @@ class Camera:
 
     def move_up(self, dt):
         vp = self.view_port()
-        step = min(dt * self.step_size(), vp.top)
+        step = min(dt * self.step_size(), int(vp.top))
         self.move((0, -step))
 
     def move_down(self, dt):
@@ -85,7 +85,7 @@ class Camera:
         width = 5000 / self.zoom_level
         height = width*(h/w)
         view_port = Rect(0, 0, 0, 0)
-        view_port.size = (width, height)
+        view_port.size = (width+1, height+1) # +1 to prevent white bars at the bottom or right
         view_port.center = self.pos
         return view_port
 
