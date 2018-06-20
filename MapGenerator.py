@@ -6,7 +6,7 @@ import loading_screen
 class MapGenerator:
 
     def __init__(self, rows, cols, screen, settings):
-        self.ITERATIONS = 31
+        self.ITERATIONS = 10
         self.cols = cols
         self.rows = rows
         self.screen = screen
