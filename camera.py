@@ -22,9 +22,9 @@ class Camera:
     MAX_X = 10000
     MIN_Y = 0
     MAX_Y = 10000
-    MIN_ZOOM = 1
-    MAX_ZOOM = 4
-    STEP_SIZE_ON_LEVEL_1 = 3
+    MIN_ZOOM = 0.5
+    MAX_ZOOM = 1.3
+    STEP_SIZE_ON_LEVEL_1 = 5
 
     def __init__(self, aspect_ratio):
         self.ratio = aspect_ratio
@@ -40,6 +40,7 @@ class Camera:
     def move_down(self, dt):
         vp = self.view_port()
         step = min(dt * self.step_size(), Camera.MAX_Y - vp.bottom)
+        print(self.view_port())
         self.move((0, step))
 
     def move_left(self, dt):
@@ -61,11 +62,11 @@ class Camera:
         return Camera.STEP_SIZE_ON_LEVEL_1 / self.zoom_level
 
     def zoom_in(self):
-        self.zoom_level = min(self.zoom_level + 1, Camera.MAX_ZOOM)
+        self.zoom_level = min(self.zoom_level + 0.25, Camera.MAX_ZOOM)
         self.clamp()
 
     def zoom_out(self):
-        self.zoom_level = max(self.zoom_level - 1, Camera.MIN_ZOOM)
+        self.zoom_level = max(self.zoom_level - 0.25, Camera.MIN_ZOOM)
         self.clamp()
 
     def clamp(self):

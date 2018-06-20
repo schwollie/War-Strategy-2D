@@ -42,7 +42,7 @@ class Menu(object):
 
         self.draw_title()
         for button in self.draw_btn_list:
-            print(button)
+            #print(button)
             button.draw_btn(self.screen)
 
     def create_start_button(self, settings):

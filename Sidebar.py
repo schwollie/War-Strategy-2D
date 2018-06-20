@@ -4,6 +4,7 @@ import Button
 import ImageButton
 import PlayerStats
 import sys
+import Shop
 
 Swordsman_image_file = 'images/Swordsman.png'
 Bowman_image_file = 'images/Bowman.png'
@@ -11,6 +12,7 @@ Bowman_image_file = 'images/Bowman.png'
 
 class Sidebar(pygame.sprite.Sprite):
     def __init__(self, settings):
+        w, h = pygame.display.get_surface().get_size()
         pygame.sprite.Sprite.__init__(self)
         self.show_sidebar = True
         self.settings = settings
@@ -21,6 +23,9 @@ class Sidebar(pygame.sprite.Sprite):
         self.create_swordsman_image()
         self.create_bowman_image()
         self.create_exit_button()
+        self.box = pygame.Surface(( w-(0.2*w), h), pygame.SRCALPHA)
+        self.box.fill((200, 200, 200, 150))
+        self.shop = Shop.Shop(settings)
 
     def change_sidebar_visibility(self):
         if self.show_sidebar:
@@ -44,7 +49,7 @@ class Sidebar(pygame.sprite.Sprite):
         left = w-(w*0.18)
         top = h-(h*0.7)
 
-        img_btn = ImageButton.ImageButton(Swordsman_image_file, left, top, width, height, self.settings, 1)
+        img_btn = ImageButton.ActiveImageButton(Swordsman_image_file, left, top, width, height, self.settings, 1)
         self.btn_list.append(img_btn)
 
     def create_bowman_image(self):
@@ -54,7 +59,7 @@ class Sidebar(pygame.sprite.Sprite):
         left = w-(w*0.095)
         top = h-(h*0.7)
 
-        img_btn = ImageButton.ImageButton(Bowman_image_file, left, top, width, height, self.settings, 1)
+        img_btn = ImageButton.ActiveImageButton(Bowman_image_file, left, top, width, height, self.settings, 1)
         self.btn_list.append(img_btn)
 
     def create_shop_button(self):
@@ -78,8 +83,10 @@ class Sidebar(pygame.sprite.Sprite):
 
     def draw_rect(self, screen):
         w, h = pygame.display.get_surface().get_size()
-        pygame.draw.rect(screen, colors.red, (w-(0.2*w), 0, w-(0.2*w), h))
-        pygame.draw.rect(screen, colors.dark_grey, (w - (0.2 * w), -100, w - (0.2 * w), (h+200)), int(w/50))
+        #pygame.draw.rect(screen,colors.grey, (w-(0.2*w), 0, w-(0.2*w), h))
+
+        screen.blit(self.box, ((w-(0.2*w), 0)))
+        pygame.draw.rect(screen, colors.dark_grey, (w - (0.2 * w), -100, w - (0.2 * w), (h+200)), int(w/200))
 
     def draw_gold(self, screen):
         Gold = PlayerStats.Gold
@@ -93,7 +100,7 @@ class Sidebar(pygame.sprite.Sprite):
     def create_toggle_button(self):
         # big rect
         w, h = pygame.display.get_surface().get_size()
-        left = w-(w*0.08)
+        left = w-(w*0.062)
         top = h-(h*0.98)
         width = w*0.05
         height = h*0.05
@@ -105,6 +112,7 @@ class Sidebar(pygame.sprite.Sprite):
             self.draw_rect(screen)
             self.draw_gold(screen)
             self.draw_fps(screen, dt)
+            self.shop.show(screen)
             for btn in self.btn_list:
                 btn.draw_btn(screen)
         else:
@@ -115,6 +123,7 @@ class Sidebar(pygame.sprite.Sprite):
             for btn in self.btn_list:
                 if btn.check_click_collide(events):
                     btn.action()
+            self.shop.process_events(events)
         else:
             if self.toggle_btn.check_click_collide(events):
                 self.toggle_btn.action()

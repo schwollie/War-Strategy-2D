@@ -49,7 +49,7 @@ class Bowman(pygame.sprite.Sprite):
         self.image = Bowman_image
         self.image_side = Bowman_image
         self.pos = pos
-        self.velocity = 65
+        self.velocity = 75
         self.health = 20
         self.damage = 20
         self.bow_damage = 40
