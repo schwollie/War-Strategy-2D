@@ -122,7 +122,7 @@ def initialize_Map(screen, settings):
 
         if changed_pos or changed_size:
             vp_in_block = calc_view_port(camera, block_map)
-            print(camera.view_port(), vp_in_block)
+            #print(camera.view_port(), vp_in_block)
 
         block_map.draw(screen, vp_in_block)
         bar.draw_all(screen, delta_time)

@@ -1,5 +1,5 @@
 from random import *
-import blocks
+import math
 from map import Map
 import loading_screen
 
@@ -12,7 +12,6 @@ class MapGenerator:
         self.screen = screen
         self.settings = settings
         self.tiles = Map(rows, cols)
-        self.load_screen = loading_screen.LoadingScreen(self.ITERATIONS, self.settings)
         self.actual_step = 0
 
 
@@ -41,6 +40,42 @@ class MapGenerator:
 
     def add_flowers(self):
         pass
+
+    def voronoi_texture(self, element_list):
+
+        # random points are indicator for biome:
+
+        point_list = []
+
+        for x in range(randint(int(self.rows*5), int(self.rows*5))):
+            point_list.append([randint(0, self.rows-1), randint(0, self.cols-1), choice(element_list)])
+
+        # ---------------------------------
+        self.load_screen = loading_screen.LoadingScreen((self.cols * self.rows * len(point_list)), self.settings)
+
+
+        for col in range(self.cols):
+            self.draw_status()
+            for row in range(self.rows):
+                # get nearest indicator point:
+
+                nearest_distance_point = [99999, 0, 0]  # [distance, col, row]
+
+                for point in point_list:
+                    self.actual_step += 1
+                    distance = math.hypot(abs(col-point[1]), abs(row-point[0]))
+                    """if distance > 550:
+                        print(distance)
+                        print(abs(row-point[0]), abs(point[1]-col))
+                        print(point)
+                        print(row, col)"""
+
+                    if distance < nearest_distance_point[0]:
+                        nearest_distance_point = [distance, point[0], point[1], point[2]]
+
+                #print(nearest_distance_point)
+                #print(row, col)
+                self.tiles.set_field(row, col, nearest_distance_point[3])
 
     def land_masses(self):
         count = self.ITERATIONS
@@ -122,13 +157,14 @@ class MapGenerator:
 
 def create_map(rows, cols, screen, settings):
     seed_num = randint(0, 999999)
-    print(seed_num)
+    print("seed: ", seed_num)
     seed(seed_num)
 
     g = MapGenerator(rows, cols, screen, settings)
     grass_chance_list = grass_chance()
     g.random(grass_chance_list)
-    g.land_masses()
+    #g.land_masses()
+    g.voronoi_texture(grass_chance_list)
     g.add_grass_stripes()
     return g.tiles
 
@@ -140,13 +176,21 @@ def init(rows, cols, screen, settings):
 
 
 def grass_chance():
-    num = randint(100, 100)
     liste = []
 
-    for i in range(num):
-        liste.extend((0, 2, 3))
+    grass = 0.2
+    rock = 0.1
+    water = 0.0
+    dirt = 0.1
 
-    liste.extend((0, 2, 3))
+    for p in range(int(50*grass)):
+        liste.append(0)
+    for c in range(int(50*rock)):
+        liste.append(3)
+    for t in range(int(50*water)):
+        liste.append(1)
+    for k in range(int(50*dirt)):
+        liste.append(2)
 
     return liste
 

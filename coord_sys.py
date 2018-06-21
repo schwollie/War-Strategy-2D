@@ -46,8 +46,8 @@ def testCoordSys():
     cs1 = CoordSys(Rect((100, 100), (1000, 500)))
     cs2 = CoordSys(Rect((0, 50), (100, 100)))
     p1_in_cs2 = cs1.transform_point((200, 450), cs2)
-    print(p1_in_cs2)
+    #print(p1_in_cs2)
     p1_in_cs1 = cs2.transform_point(p1_in_cs2, cs1)
-    print(p1_in_cs1)
+    #print(p1_in_cs1)
 
 testCoordSys()

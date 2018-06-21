@@ -9,7 +9,7 @@ def transform_pic(pic, width, height):
 
 
 class MapSprite(pygame.sprite.DirtySprite):
-    def __init__(self, get_image, pos_x, pos_y, name):
+    def __init__(self, get_image, name):
         pygame.sprite.DirtySprite.__init__(self)
         self.name = name
         self.get_image = get_image
@@ -90,7 +90,7 @@ class BlockMap:
                 self.canvas.blit(sprite, (x, y))
                 x += delta
             y += delta
-        print("Final size: %s, %s" % (x, y))
+        #print("Final size: %s, %s" % (x, y))
 
     def draw(self, screen, view_port):
         screen.blit(self.canvas, (0, 0), area=view_port)

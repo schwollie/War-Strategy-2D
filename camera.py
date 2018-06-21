@@ -38,7 +38,6 @@ class Camera:
     def move_down(self, dt):
         vp = self.view_port()
         step = min(dt * self.step_size(), Camera.MAX_Y - vp.bottom)
-        print(self.view_port())
         self.move((0, step))
 
     def move_left(self, dt):

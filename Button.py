@@ -96,10 +96,12 @@ class button(object):
             self.color = colors.white
             self.on_touch_sound()
             self.last_color = self.color
+            font_size_mult = 1.05
         else:
             self.color = colors.light_grey
             self.on_touch_sound()
             self.last_color = self.color
+            font_size_mult = 1
 
         pygame.draw.rect(screen, self.color,
                          [self.left + self.line_strength, self.top + self.line_strength,
@@ -110,7 +112,7 @@ class button(object):
                                                 self.width + self.line_strength, self.height + self.line_strength],
                          self.line_strength)
 
-        font = pygame.font.Font(None, int(self.text_size))
+        font = pygame.font.Font(None, int(self.text_size*font_size_mult))
         title = font.render(self.text, True, colors.black)
         text_rect = title.get_rect(center=(self.left + self.width / 2, self.top + self.height / 1.72))
         screen.blit(title, text_rect)

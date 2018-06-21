@@ -1,5 +1,7 @@
 import Button
+import ImageButton
 import pygame
+
 
 class Shop(object):
     def __init__(self, settings):
@@ -30,4 +32,20 @@ class Shop(object):
     def expand_shop(self):
         pass
 
+class Items:
+    def __init__(self, price, name, left, top, width, height, icon_location, info="100$"):
+        self.price = price
+        self.name = name
+        self.info = info
+
+        self.image_button = ImageButton.ImageButton(icon_location, left, top, width, height)
+
+    def update_price(self, newprice=None, pricemultiplier=None):
+        if newprice:
+            self.price = newprice
+        elif pricemultiplier:
+            self.price = self.price*pricemultiplier
+
+    def show_item(self, surface):
+        pass
 
