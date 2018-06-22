@@ -72,7 +72,7 @@ class BlockMap:
         if field == Map.ROCK: return self.rock_sprite
         raise Exception('Unknown field type %d' % field)
 
-    def update(self, width, height):
+    def create_canvas(self, width, height):
         size = max(width, height)
         delta = size / self.map.rows
         block_width = math.ceil(delta)
@@ -92,6 +92,15 @@ class BlockMap:
             y += delta
         #print("Final size: %s, %s" % (x, y))
 
+
+    def update(self, width, height):
+        width = int(width)
+        height = int(height)
+        size = max(width, height)
+        self.coord_sys = CoordSys(pygame.Rect((0,0), (size, size)))
+        self.zoom_canvas = pygame.transform.scale(self.canvas, (size, size))
+        #print("Final size: %s, %s" % (x, y))
+
     def draw(self, screen, view_port):
-        screen.blit(self.canvas, (0, 0), area=view_port)
+        screen.blit(self.zoom_canvas, (0, 0), area=view_port)
 

@@ -78,6 +78,7 @@ class MapGenerator:
                 self.tiles.set_field(row, col, nearest_distance_point[3])
 
     def land_masses(self):
+        self.load_screen = loading_screen.LoadingScreen(self.ITERATIONS, self.settings)
         count = self.ITERATIONS
         for i in range(count):
             self.actual_step = i
@@ -124,6 +125,78 @@ class MapGenerator:
     def lakes(self):
         pass
 
+    def method_3(self):
+        biomes = randint(50, self.cols/2)
+        biomes = 1
+
+        for i in range(biomes):
+            biome_type = choice([Map.DIRT, Map.ROCK, Map.WATER])
+            biome_start_point = [randint(10, self.rows-10), randint(10, self.cols-10)]
+            r_start = randint(10, 20)
+            radius_range = [r_start, randint(r_start+randint(2, 10), r_start+randint(10, 20))]
+
+            verticy_list = []
+            step = 30
+            for degree in range(0, 360, step):
+                # first point
+                biome_start_point = [100, 100]
+                distance_to_start = randint(radius_range[0], radius_range[1])
+                #distance_to_start = 30
+
+                delta_x = math.ceil(math.sin(math.radians(degree)) * distance_to_start)
+                delta_y = math.ceil(math.cos(math.radians(degree)) * distance_to_start)
+
+                print(degree)
+                print(delta_x, delta_y)
+
+                point = [biome_start_point[0]+delta_x, biome_start_point[1]+delta_y, 2]
+                verticy_list.append(point)
+
+                """# second point for no straight lines:
+                distance_to_start_2 = randint(distance_to_start-3, distance_to_start+3)
+                delta_x = math.ceil(math.sin(math.radians(degree+(step/2))) * distance_to_start_2)
+                delta_y = math.ceil(math.cos(math.radians(degree+(step/2))) * distance_to_start_2)
+
+                point = [biome_start_point[0] + delta_x, biome_start_point[1] + delta_y, 3]
+                verticy_list.append(point)"""
+
+            # ----------------------- # find a line between two points
+            temp_verticy_list = []
+            for point in verticy_list:
+                last_point = verticy_list[verticy_list.index(point)-1]
+                delta_x = point[1]-last_point[1]
+                delta_y = point[0]-last_point[0]
+
+                print(delta_x, delta_y, last_point, point)
+
+                if abs(delta_x) > abs(delta_y):
+                    y_step_per_x = delta_y/delta_x
+
+                    for x in range(int(delta_x)):
+                        new_point = [last_point[0]+int((x*y_step_per_x)), last_point[1]+x, 1]
+                        temp_verticy_list.append(new_point)
+                        #temp_verticy_list.append([last_point[0], last_point[1]+1, 1])
+
+                else:
+                    print("in")
+                    x_step_per_y = delta_x / delta_y
+
+                    for y in range(int(delta_y)):
+                        new_point = [last_point[0]+y, int(last_point[1]+(x_step_per_y*y)), 1]
+                        temp_verticy_list.append(new_point)
+
+            for point in temp_verticy_list:
+                verticy_list.append(point)
+            # --------------------------
+
+
+            for Point in verticy_list:
+                try:
+                    self.tiles.set_field(int(Point[0]), int(Point[1]), int(point[2]))
+                except IndexError:
+                    continue
+
+
     def random(self, grass_chance):
         for row in range(self.cols):
             for col in range(self.rows):
@@ -154,17 +227,24 @@ class MapGenerator:
         #        elif self.tiles[row][col] == 3:
         #            self.add_dirt(row, col)
 
+    def grass(self):
+        for y in range(self.cols):
+            for x in range(self.rows):
+                self.tiles.set_field(x, y, Map.GRASS)
+
 
 def create_map(rows, cols, screen, settings):
     seed_num = randint(0, 999999)
     print("seed: ", seed_num)
-    seed(seed_num)
+    seed(428468)
 
     g = MapGenerator(rows, cols, screen, settings)
     grass_chance_list = grass_chance()
-    g.random(grass_chance_list)
+    #g.random(grass_chance_list)
+    g.grass()
+    g.method_3()
     #g.land_masses()
-    g.voronoi_texture(grass_chance_list)
+    #g.voronoi_texture(grass_chance_list)
     g.add_grass_stripes()
     return g.tiles
 
@@ -178,7 +258,7 @@ def init(rows, cols, screen, settings):
 def grass_chance():
     liste = []
 
-    grass = 0.2
+    grass = 0.1
     rock = 0.1
     water = 0.0
     dirt = 0.1

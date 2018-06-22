@@ -25,6 +25,7 @@ def initialize_Map(screen, settings):
     #Camera.set_Blocks_settings()
 
     block_map = BlockMap(map)
+    block_map.create_canvas(w * 5, h * 5)
     vw, vh = w * 2 * camera.zoom_level, h * 2 * camera.zoom_level
     block_map.update(vw, vh)
 
