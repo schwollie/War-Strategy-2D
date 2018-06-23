@@ -126,75 +126,141 @@ class MapGenerator:
         pass
 
     def method_3(self):
-        biomes = randint(50, self.cols/2)
-        biomes = 1
+        biomes = randint(int(self.cols/4), self.cols/2)
+        #biomes = 1
 
+        MIN_RADIUS = 10
+        MAX_RADIUS = 25
+        BORDER = 1
         for i in range(biomes):
+            all_biome_points = set()
+
             biome_type = choice([Map.DIRT, Map.ROCK, Map.WATER])
-            biome_start_point = [randint(10, self.rows-10), randint(10, self.cols-10)]
-            r_start = randint(10, 20)
+            biome_start_point = (randint(BORDER, self.rows-BORDER), randint(BORDER, self.cols-BORDER))
+            r_start = randint(MIN_RADIUS, MAX_RADIUS)
             radius_range = [r_start, randint(r_start+randint(2, 10), r_start+randint(10, 20))]
 
             verticy_list = []
-            step = 30
-            for degree in range(0, 360, step):
+            angle_range = sorted([randint(0, 360) for _ in range(randint(15,25))])
+            print(angle_range)
+
+            start_row, start_col = biome_start_point
+
+            for angle_idx in range(len(angle_range)):
+                degree = angle_range[angle_idx]
+                if angle_idx < len(angle_range)-1:
+                    step = angle_range[angle_idx + 1] - degree
+                else:
+                    step = 360 - degree
                 # first point
-                biome_start_point = [100, 100]
+
+                #biome_start_point = [self.cols/2, self.rows/2]
                 distance_to_start = randint(radius_range[0], radius_range[1])
-                #distance_to_start = 30
+                #distance_to_start = 10
 
-                delta_x = math.ceil(math.sin(math.radians(degree)) * distance_to_start)
-                delta_y = math.ceil(math.cos(math.radians(degree)) * distance_to_start)
+                delta_row = round(math.sin(math.radians(degree)) * distance_to_start)
+                delta_col = round(math.cos(math.radians(degree)) * distance_to_start)
 
-                print(degree)
-                print(delta_x, delta_y)
+                #print(degree)
+                #print(delta_row, delta_col)
 
-                point = [biome_start_point[0]+delta_x, biome_start_point[1]+delta_y, 2]
+                point = (start_row+delta_row, start_col+delta_col)
                 verticy_list.append(point)
 
-                """# second point for no straight lines:
+                # second point for no straight lines:
                 distance_to_start_2 = randint(distance_to_start-3, distance_to_start+3)
-                delta_x = math.ceil(math.sin(math.radians(degree+(step/2))) * distance_to_start_2)
-                delta_y = math.ceil(math.cos(math.radians(degree+(step/2))) * distance_to_start_2)
+                delta_row = round(math.sin(math.radians(degree+(step/2))) * distance_to_start_2)
+                delta_col = round(math.cos(math.radians(degree+(step/2))) * distance_to_start_2)
 
-                point = [biome_start_point[0] + delta_x, biome_start_point[1] + delta_y, 3]
-                verticy_list.append(point)"""
+                point = (start_row + delta_row, start_col + delta_col)
+                verticy_list.append(point)#
 
-            # ----------------------- # find a line between two points
+                #print(degree+(step/2))
+                #print(delta_row, delta_col)
+
+            #"""# ----------------------- # find a line between two points
             temp_verticy_list = []
-            for point in verticy_list:
-                last_point = verticy_list[verticy_list.index(point)-1]
-                delta_x = point[1]-last_point[1]
-                delta_y = point[0]-last_point[0]
+            for idx in range(0, len(verticy_list)):
+                row, col = verticy_list[idx]
+                lrow, lcol = verticy_list[idx-1]
 
-                print(delta_x, delta_y, last_point, point)
+                delta_row = row-lrow
+                delta_col = col-lcol
 
-                if abs(delta_x) > abs(delta_y):
-                    y_step_per_x = delta_y/delta_x
+                if abs(delta_col) > abs(delta_row):
+                    if delta_col == 0:
+                        rows_per_col = 0
+                    else:
+                        rows_per_col = delta_row/delta_col
 
-                    for x in range(int(delta_x)):
-                        new_point = [last_point[0]+int((x*y_step_per_x)), last_point[1]+x, 1]
+                    sgn = 1
+                    if delta_col < 0:
+                        sgn = -1
+                    for c in range(int(abs(delta_col))):
+                        dc = sgn * c
+                        new_point = (round(lrow + (dc*rows_per_col)), lcol+dc)
+                        #print(dc, new_point, delta_row, delta_col, rows_per_col)
                         temp_verticy_list.append(new_point)
                         #temp_verticy_list.append([last_point[0], last_point[1]+1, 1])
 
                 else:
-                    print("in")
-                    x_step_per_y = delta_x / delta_y
+                    if delta_row == 0:
+                        cols_per_row = 0
+                    else:
+                        cols_per_row = delta_col/delta_row
 
-                    for y in range(int(delta_y)):
-                        new_point = [last_point[0]+y, int(last_point[1]+(x_step_per_y*y)), 1]
+                    sgn = 1
+                    if delta_row < 0:
+                        sgn = -1
+
+                    for r in range(int(abs(delta_row))):
+                        dr = sgn * r
+                        new_point = (lrow+dr, round(lcol+(dr * cols_per_row)))
+                        #print(dr, new_point, delta_row, delta_col, cols_per_row)
                         temp_verticy_list.append(new_point)
 
-            for point in temp_verticy_list:
-                verticy_list.append(point)
-            # --------------------------
+            verticy_list.extend(temp_verticy_list)
 
+            #print(len(verticy_list))
+            #print(verticy_list)
 
-            for Point in verticy_list:
-                try:
-                    self.tiles.set_field(int(Point[0]), int(Point[1]), int(point[2]))
-                except IndexError:
+            #---------------------------- draw edges
+
+            for p in verticy_list:
+                all_biome_points.add(p)
+
+            # --------------------------"""  now fill the hole thing
+            fill_list = []
+            fill_list.append(biome_start_point)
+            all_biome_points.add(biome_start_point)
+            count = 0
+
+            while fill_list:
+                #if count > 100:
+                #    break
+
+                point = fill_list.pop(0)
+                row, col = point
+                #print(count, point)
+
+                offsets = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+                for offset in offsets:
+                    ofr, ofc = offset
+                    nr, nc = row + ofr, col + ofc
+                    if nc not in range(self.cols) or nr not in range(self.rows):
+                        continue
+                    np = (nr, nc)
+                    if np not in all_biome_points:
+                        all_biome_points.add(np)
+                        fill_list.append(np)
+
+                count += 1
+                #print(len(fill_list))
+
+            for r, c in all_biome_points:
+                if c not in range(self.cols) or r not in range(self.rows):
                     continue
+                self.tiles.set_field(r, c, biome_type)
 
 
     def random(self, grass_chance):
@@ -236,7 +302,7 @@ class MapGenerator:
 def create_map(rows, cols, screen, settings):
     seed_num = randint(0, 999999)
     print("seed: ", seed_num)
-    seed(428468)
+    seed(797319)
 
     g = MapGenerator(rows, cols, screen, settings)
     grass_chance_list = grass_chance()
@@ -245,13 +311,13 @@ def create_map(rows, cols, screen, settings):
     g.method_3()
     #g.land_masses()
     #g.voronoi_texture(grass_chance_list)
-    g.add_grass_stripes()
+    #g.add_grass_stripes()
     return g.tiles
 
 
 def init(rows, cols, screen, settings):
     map = create_map(rows, cols, screen, settings)
-    print(map.text())
+    #print(map.text())
     return map
 
 
@@ -275,10 +341,10 @@ def grass_chance():
     return liste
 
 
+def test():
+    map = create_map(1000, 1000, None, None)
+    print(map.text())
 
-
-
-
-
+#test()
 
 
